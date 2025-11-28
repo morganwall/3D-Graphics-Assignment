@@ -468,7 +468,6 @@ int main()
 /*
 TODO:
 Add all parts of Phong shading. .SHOULD DO.
-Add Tools drop down at the top, with ImGui Demo window in it.
 Add widgets that show the in-world location and the size of the lights, using ImGui.
 Add support for multiple lights at the same time.
 Add random and perlin noise height option to the terrain.
