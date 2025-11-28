@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="External\GLEW\glew.c" />
     <ClCompile Include="External\IMGUI\imgui.cpp" />
+    <ClCompile Include="External\IMGUI\imgui_demo.cpp" />
     <ClCompile Include="External\IMGUI\imgui_draw.cpp" />
     <ClCompile Include="External\IMGUI\imgui_impl_glfw.cpp" />
     <ClCompile Include="External\IMGUI\imgui_impl_opengl3.cpp" />

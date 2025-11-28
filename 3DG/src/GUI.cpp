@@ -76,7 +76,14 @@ void GUI::Viewport(GLFWwindow* window)
 			ImGui::EndMenu();
 		}
 
-		ImGui::SameLine(ImGui::GetContentRegionAvail().x + ImGui::CalcTextSize("Exit").x + ImGui::GetStyle().FramePadding.x);
+		if (ImGui::BeginMenu("Tools"))
+		{
+			ImGui::MenuItem("ImGui Demo", nullptr, &showImGuiDemo);
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::SameLine(ImGui::GetContentRegionAvail().x + ImGui::CalcTextSize("Exit").x + ImGui::GetStyle().FramePadding.x + 40.0f);
 		if (ImGui::MenuItem("Exit", nullptr, nullptr))
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
 
@@ -212,4 +219,7 @@ void GUI::DrawGUI(GLFWwindow* window, glm::vec4& clearColour)
 	InspectorWindow();
 	WorldSettingsWindow(clearColour);
 	ObjectsWindow();
+
+	if (showImGuiDemo)
+		ImGui::ShowDemoWindow();
 }

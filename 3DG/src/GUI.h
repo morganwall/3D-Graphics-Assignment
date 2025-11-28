@@ -23,6 +23,8 @@ class GUI
 	bool showInspectorWindow{ true };
 	bool showWorldSettingsWindow{ true };
 
+	bool showImGuiDemo{ false };
+
 public:
 	// Getters.
 	SceneObject* GetSelectedObject() { return selectedObject; }
