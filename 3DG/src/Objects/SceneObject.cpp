@@ -63,26 +63,29 @@ void SceneObject::GUI()
 		if (ImGui::InputText("Name", nameBuffer, sizeof(nameBuffer)))
 			name = std::string(nameBuffer);
 
-		ImGui::DragFloat3("Position", &position.x);
-		if (ImGui::DragFloat3("Rotation", &rotation.x)) // This should be rewrote. Quick fix.
+		if (objectType != SceneObjectType::SKYBOX)
 		{
-			// Make the values wrap back around.
-			if (rotation.x > 180.0f)
-				rotation.x = -179.0f;
-			if (rotation.x < -180.0f)
-				rotation.x = 179.0f;
+			ImGui::DragFloat3("Position", &position.x);
+			if (ImGui::DragFloat3("Rotation", &rotation.x)) // This should be rewrote. Quick fix.
+			{
+				// Make the values wrap back around.
+				if (rotation.x > 180.0f)
+					rotation.x = -179.0f;
+				if (rotation.x < -180.0f)
+					rotation.x = 179.0f;
 
-			if (rotation.y > 180.0f)
-				rotation.y = -179.0f;
-			if (rotation.y < -180.0f)
-				rotation.y = 179.0f;
+				if (rotation.y > 180.0f)
+					rotation.y = -179.0f;
+				if (rotation.y < -180.0f)
+					rotation.y = 179.0f;
 
-			if (rotation.z > 180.0f)
-				rotation.z = -179.0f;
-			if (rotation.z < -180.0f)
-				rotation.z = 179.0f;
+				if (rotation.z > 180.0f)
+					rotation.z = -179.0f;
+				if (rotation.z < -180.0f)
+					rotation.z = 179.0f;
+			}
+			ImGui::DragFloat3("Scale", &scale.x);
 		}
-		ImGui::DragFloat3("Scale", &scale.x);
 		if (hasMesh)
 			ImGui::Checkbox("Show Wireframe", &wireframe);
 	}

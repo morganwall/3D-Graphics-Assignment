@@ -18,7 +18,7 @@ protected:
 	float moveSpeedSteps{ 2.5f };
 	float fov{ 45.0f };
 	float nearClip{ 0.1f };
-	float farClip{ 200.0f };
+	float farClip{ 4000.0f };
 
 public:
 	glm::mat4 GetViewMatrix() { return glm::lookAt(eye, eye + center, up); }

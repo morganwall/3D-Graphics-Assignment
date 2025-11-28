@@ -115,6 +115,8 @@ void GUI::ObjectsWindow()
 				sceneObjects.push_back(new PointLight());
 			if (ImGui::MenuItem("Spot Light"))
 				sceneObjects.push_back(new SpotLight());
+			if (ImGui::MenuItem("Skybox"))
+				sceneObjects.push_back(new Skybox());
 
 			ImGui::EndPopup();
 		}

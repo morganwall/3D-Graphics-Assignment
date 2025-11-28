@@ -169,5 +169,7 @@
     <None Include="Data\Shaders\vertex_shader.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Data\Shaders\skybox.vert" />
+    <None Include="Data\Shaders\skybox.frag" />
   </ItemGroup>
 </Project>

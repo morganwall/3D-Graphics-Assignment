@@ -4,6 +4,7 @@
 #include "Objects/Cube.h"
 #include "Objects/Terrain.h"
 #include "Objects/Camera.h"
+#include "Objects/Skybox.h"
 #include "Objects/Lights/Light.h"
 #include "Objects/Lights/DirectionalLight.h"
 #include "Objects/Lights/PointLight.h"
@@ -12,6 +13,7 @@
 glm::ivec2 wndSize{ 0, 0 };
 GUI* gui{ nullptr };
 GLuint gShaderProgram{ 0 };
+GLuint gSkyboxShaderProgram{ 0 };
 std::string wndTitle{ "3D Graphics" };
 std::vector<SceneObject*> sceneObjects;
 Camera* camera{ nullptr };
@@ -199,8 +201,9 @@ void SetupDebugMessageCallback()
 
 void CreateShaders()
 {
-	GLuint vertexShader = KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/vertex_shader.vert");
-	GLuint fragmentShader = KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/fragment_shader.frag");
+	// Create General Purpose Shaders.
+	GLuint vertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/vertex_shader.vert") };
+	GLuint fragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/fragment_shader.frag") };
 	gShaderProgram = glCreateProgram();
 
 	// Create and Attach Shader Program.
@@ -210,9 +213,23 @@ void CreateShaders()
 	// Link Shaders.
 	KeithHelpers::LinkProgramShaders(gShaderProgram);
 
+	// Create Skybox Shaders.
+	GLuint skyboxVertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/skybox.vert") };
+	GLuint skyboxFragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/skybox.frag") };
+	gSkyboxShaderProgram = glCreateProgram();
+
+	// Create and Attach Shader Program.
+	glAttachShader(gSkyboxShaderProgram, skyboxVertexShader);
+	glAttachShader(gSkyboxShaderProgram, skyboxFragmentShader);
+
+	// Link Shaders.
+	KeithHelpers::LinkProgramShaders(gSkyboxShaderProgram);
+
 	// Delete Shader Objects.
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+	glDeleteShader(skyboxVertexShader);
+	glDeleteShader(skyboxFragmentShader);
 
 	std::cout << "[+] Shaders Created and Linked.\n";
 }
@@ -289,7 +306,20 @@ void Render(GLFWwindow* window)
 
 	// Loop through All Objects and Draw Them.
 	for (auto& curObject : sceneObjects)
-		curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gShaderProgram);
+	{
+		switch (curObject->GetObjectType())
+		{
+		case SceneObjectType::SKYBOX:
+			glUseProgram(gSkyboxShaderProgram);
+			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gSkyboxShaderProgram);
+			break;
+
+		default:
+			glUseProgram(gShaderProgram);
+			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gShaderProgram);
+			break;
+		}
+	}
 
 	// Create New ImGui Frame.
 	ImGui_ImplOpenGL3_NewFrame();
@@ -412,6 +442,7 @@ int main()
 	sceneObjects.push_back(new Cube("Cube", { 1.0f, 0.0f, 0.0f }));
 	sceneObjects.push_back(new Terrain("Terrain"));
 	sceneObjects.push_back(light);
+	sceneObjects.push_back(new Skybox());
 
 	// Main Loop.
 	while (!glfwWindowShouldClose(window))
@@ -436,8 +467,8 @@ int main()
 
 /*
 TODO:
-Add a sky box object. !REQUIRED!
-	Use a cube map.
+Add all parts of Phong shading. .SHOULD DO.
+Add Tools drop down at the top, with ImGui Demo window in it.
 Add widgets that show the in-world location and the size of the lights, using ImGui.
 Add support for multiple lights at the same time.
 Add random and perlin noise height option to the terrain.

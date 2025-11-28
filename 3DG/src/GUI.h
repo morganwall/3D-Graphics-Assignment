@@ -8,6 +8,7 @@
 #include "Objects/SceneObject.h"
 #include "Objects/Cube.h"
 #include "Objects/Terrain.h"
+#include "Objects/Skybox.h"
 #include "Objects/Lights/Light.h"
 #include "Objects/Lights/DirectionalLight.h"
 #include "Objects/Lights/PointLight.h"

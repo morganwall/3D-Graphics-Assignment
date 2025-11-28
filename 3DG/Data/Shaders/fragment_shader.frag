@@ -56,7 +56,6 @@ void main()
         float distance = length(light.position - vertPos);
         if (distance > light.maxRange) // Check if what we're trying to light is outside of the maximum light range.
         {
-            //fragColor = vec4(0.0f, 0.0f, 0.0f, 1.0f);
             fragColor = vec4(albedo * ambientLight, 1.0f);
             return;
         }
@@ -68,7 +67,6 @@ void main()
     {
         attenuation = 1.0f;
         curLightDirection = normalize(-light.direction);
-        //ambientLight = 0.25f;
     }
 
     // Calculate Spot Intensity.
