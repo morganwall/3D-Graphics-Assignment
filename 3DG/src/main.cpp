@@ -449,7 +449,6 @@ int main()
 	{
 		float deltaTime{ GetDeltaTime() };
 
-		// Input.
 		Input(window, deltaTime);
 
 		Update(deltaTime);
@@ -476,4 +475,5 @@ Add a move and rotation widget to selected objects.
 Add loading and rendering 3D models, with support for textures. !REQUIRED!
 	Maybe add hierarchical transformations, for example a rotating propellor on a plane.
 Make objects cast shadows.
+Make terrain texture tile. .SHOULD DO.
 */

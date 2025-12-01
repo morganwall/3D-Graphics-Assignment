@@ -2,11 +2,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glew.h>
 #include <imgui.h>
+#include "Widgets/Widget.h"
+#include "Widgets/TransformWidget.h"
 
 enum class SceneObjectType
 {
@@ -39,6 +42,7 @@ protected:
 	bool wireframe{ false }; // Show the object's wireframe.
 	std::vector<glm::vec3> colours;
 	SceneObjectType objectType{ SceneObjectType::SCENE_OBJECT }; // Pretty much the object type ID. An easier way of telling what type each object is. Used mostly for the GUI.
+	std::unique_ptr<TransformWidget> transformWidget;
 
 public:
 	virtual void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram);
@@ -65,5 +69,5 @@ public:
 	void SetObjectType(SceneObjectType type) { objectType = type; }
 
 	SceneObject(std::string objectName, glm::vec3 pos = { 0.0f, 0.0f, 0.0f }, glm::vec3 rot = { 0.0f, 0.0f, 0.0f }, glm::vec3 objectScale = { 1.0f, 1.0f, 1.0f });
-	virtual ~SceneObject() {}
+	virtual ~SceneObject();
 };

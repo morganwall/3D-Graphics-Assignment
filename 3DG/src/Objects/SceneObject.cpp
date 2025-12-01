@@ -40,7 +40,9 @@ void SceneObject::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionM
 
 void SceneObject::Update(float deltaTime)
 {
-
+	// Check if we should Update the Transform Widget.
+	if (transformWidget && transformWidget->GetActive())
+		transformWidget->SetPosition(position);
 }
 
 void SceneObject::GUI()
@@ -108,4 +110,12 @@ SceneObject::SceneObject(std::string objectName, glm::vec3 pos, glm::vec3 rot, g
 {
 	// Set the Object Type Again. Not needed, but just in case.
 	objectType = SceneObjectType::SCENE_OBJECT;
+}
+
+SceneObject::~SceneObject()
+{
+	glDeleteVertexArrays(1, &vao);
+	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &ebo);
+	glDeleteBuffers(1, &normalBuffer);
 }

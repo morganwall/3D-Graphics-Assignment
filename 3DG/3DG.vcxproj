@@ -151,6 +151,8 @@
     <ClCompile Include="src\Objects\SceneObject.cpp" />
     <ClCompile Include="src\Objects\Skybox.cpp" />
     <ClCompile Include="src\Objects\Terrain.cpp" />
+    <ClCompile Include="src\Objects\Widgets\TransformWidget.cpp" />
+    <ClCompile Include="src\Objects\Widgets\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\GLEW\eglew.h" />
@@ -177,6 +179,8 @@
     <ClInclude Include="src\Objects\SceneObject.h" />
     <ClInclude Include="src\Objects\Skybox.h" />
     <ClInclude Include="src\Objects\Terrain.h" />
+    <ClInclude Include="src\Objects\Widgets\TransformWidget.h" />
+    <ClInclude Include="src\Objects\Widgets\Widget.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\fragment_shader.frag" />
