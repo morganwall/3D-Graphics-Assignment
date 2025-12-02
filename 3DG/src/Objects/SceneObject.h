@@ -42,9 +42,10 @@ protected:
 	bool wireframe{ false }; // Show the object's wireframe.
 	std::vector<glm::vec3> colours;
 	SceneObjectType objectType{ SceneObjectType::SCENE_OBJECT }; // Pretty much the object type ID. An easier way of telling what type each object is. Used mostly for the GUI.
-	std::unique_ptr<TransformWidget> transformWidget;
+	std::vector<std::unique_ptr<Widget>> widgets;
 
 public:
+	void DrawWidgets(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram);
 	virtual void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram);
 	virtual void Update(float deltaTime);
 	void GUI();

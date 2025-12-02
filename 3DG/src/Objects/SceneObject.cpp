@@ -1,7 +1,39 @@
 #include "SceneObject.h"
 #include "Lights/Light.h"
+#include "Lights/DirectionalLight.h"
+#include "Lights/PointLight.h"
+#include "Lights/SpotLight.h"
 
 extern Light* light;
+
+void SceneObject::DrawWidgets(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram)
+{
+	// Loop through Widgets.
+	for (auto& curWidget : widgets)
+	{
+		// Check if it's Active.
+		if (!curWidget->GetActive())
+			return;
+
+		// Set Polygon Mode.
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		//// Set Shader.
+		//glUseProgram(gShaderProgram);
+
+		//// Create Model Matrix.
+		//glm::mat4 modelMatrix{ glm::translate(glm::mat4(1.0f), position) };
+
+		//// Upload Matrices to Shader.
+		//glUniformMatrix4fv(glGetUniformLocation(gShaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		//glUniformMatrix4fv(glGetUniformLocation(gShaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
+		//glUniformMatrix4fv(glGetUniformLocation(gShaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+		//glBindVertexArray(vao);
+
+		curWidget->Draw(viewMatrix, projectionMatrix, gShaderProgram);
+	}
+}
 
 void SceneObject::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram)
 {
@@ -40,9 +72,12 @@ void SceneObject::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionM
 
 void SceneObject::Update(float deltaTime)
 {
-	// Check if we should Update the Transform Widget.
-	if (transformWidget && transformWidget->GetActive())
-		transformWidget->SetPosition(position);
+	// Loop through all of This Object's Widgets.
+	for (auto& curWidget : widgets)
+	{
+		// Update Position.
+		curWidget->SetPosition(position);
+	}
 }
 
 void SceneObject::GUI()
@@ -110,6 +145,8 @@ SceneObject::SceneObject(std::string objectName, glm::vec3 pos, glm::vec3 rot, g
 {
 	// Set the Object Type Again. Not needed, but just in case.
 	objectType = SceneObjectType::SCENE_OBJECT;
+
+	widgets.push_back(std::make_unique<TransformWidget>(true));
 }
 
 SceneObject::~SceneObject()

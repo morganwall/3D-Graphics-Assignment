@@ -21,6 +21,6 @@ public:
 	void GUI() override;
 	void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram) override;
 
-	TransformWidget();
+	TransformWidget(bool visible = false, float widgetSize = 1.0f, WidgetType widgetType = WidgetType::TRANSFORM);
 	~TransformWidget();
 };

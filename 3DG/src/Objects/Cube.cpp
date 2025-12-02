@@ -65,7 +65,7 @@ void Cube::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, 
 	glBindVertexArray(0); // Unbind Vertex Array.
 }
 
-Cube::Cube(std::string objectName, glm::vec3 pos, glm::vec3 rot) : SceneObject(objectName, pos, rot)
+Cube::Cube(std::string objectName, glm::vec3 pos, glm::vec3 rot, glm::vec3 objectScale) : SceneObject(objectName, pos, rot, objectScale)
 {
 	// Set Object Type.
 	objectType = SceneObjectType::CUBE;

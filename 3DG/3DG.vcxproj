@@ -187,6 +187,8 @@
     <None Include="Data\Shaders\skybox.frag" />
     <None Include="Data\Shaders\skybox.vert" />
     <None Include="Data\Shaders\vertex_shader.vert" />
+    <None Include="Data\Shaders\widget.frag" />
+    <None Include="Data\Shaders\widget.vert" />
     <None Include="External\IMGUI\imgui.gdb" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

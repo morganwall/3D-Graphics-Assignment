@@ -26,7 +26,7 @@ void DirectionalLight::ShaderSetup(GLuint gShaderProgram)
 	glUniform3f(glGetUniformLocation(gShaderProgram, "light.direction"), direction.x, direction.y, direction.z);
 }
 
-DirectionalLight::DirectionalLight(std::string objectName, glm::vec3 pos, glm::vec3 rot) : Light(objectName, LightType::Directional, pos, rot)
+DirectionalLight::DirectionalLight(std::string objectName, glm::vec3 pos, glm::vec3 rot) : Light(objectName, LightType::DIRECTIONAL, pos, rot)
 {
 	// Set Object Type.
 	objectType = SceneObjectType::LIGHT;

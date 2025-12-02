@@ -14,6 +14,7 @@ glm::ivec2 wndSize{ 0, 0 };
 GUI* gui{ nullptr };
 GLuint gShaderProgram{ 0 };
 GLuint gSkyboxShaderProgram{ 0 };
+GLuint gWidgetShaderProgram{ 0 };
 std::string wndTitle{ "3D Graphics" };
 std::vector<SceneObject*> sceneObjects;
 Camera* camera{ nullptr };
@@ -201,6 +202,7 @@ void SetupDebugMessageCallback()
 
 void CreateShaders()
 {
+	// ----- Default Shader - Start ------
 	// Create General Purpose Shaders.
 	GLuint vertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/vertex_shader.vert") };
 	GLuint fragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/fragment_shader.frag") };
@@ -212,7 +214,9 @@ void CreateShaders()
 
 	// Link Shaders.
 	KeithHelpers::LinkProgramShaders(gShaderProgram);
+	// ----- Default Shader - End ------
 
+	// ----- Skybox Shader - Start ------
 	// Create Skybox Shaders.
 	GLuint skyboxVertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/skybox.vert") };
 	GLuint skyboxFragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/skybox.frag") };
@@ -224,6 +228,21 @@ void CreateShaders()
 
 	// Link Shaders.
 	KeithHelpers::LinkProgramShaders(gSkyboxShaderProgram);
+	// ----- Skybox Shader - End ------
+
+	// ----- Widget Shader - Start ------
+	// Create Widget Shaders.
+	GLuint widgetVertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/widget.vert") };
+	GLuint widgetFragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/widget.frag") };
+	gWidgetShaderProgram = glCreateProgram();
+
+	// Create and Attach Shader Program.
+	glAttachShader(gWidgetShaderProgram, widgetVertexShader);
+	glAttachShader(gWidgetShaderProgram, widgetFragmentShader);
+
+	// Link Shaders.
+	KeithHelpers::LinkProgramShaders(gWidgetShaderProgram);
+	// ----- Skybox Shader - End ------
 
 	// Delete Shader Objects.
 	glDeleteShader(vertexShader);
@@ -307,6 +326,7 @@ void Render(GLFWwindow* window)
 	// Loop through All Objects and Draw Them.
 	for (auto& curObject : sceneObjects)
 	{
+		// Switch on Object Type and Draw the Object.
 		switch (curObject->GetObjectType())
 		{
 		case SceneObjectType::SKYBOX:
@@ -319,6 +339,11 @@ void Render(GLFWwindow* window)
 			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gShaderProgram);
 			break;
 		}
+
+		if (curObject->GetObjectType() == SceneObjectType::CAMERA)
+			continue;
+
+		curObject->DrawWidgets(camera->GetViewMatrix(), projectionMatrix, gWidgetShaderProgram);
 	}
 
 	// Create New ImGui Frame.
@@ -431,9 +456,9 @@ int main()
 	camera = new Camera();
 
 	// Create Light.
-	//light = new DirectionalLight("Directional Light");
+	light = new DirectionalLight("Directional Light");
 	//light = new PointLight("Point Light", { 0.0f, 10.0f, 0.0f });
-	light = new SpotLight("Spot Light", { 0.0f, 10.0f, 0.0f }, { -90.0f, 0.0f, 0.0f });
+	//light = new SpotLight("Spot Light", { 0.0f, 10.0f, 0.0f }, { -90.0f, 0.0f, 0.0f });
 
 	// Create Objects.
 	sceneObjects.push_back(camera);

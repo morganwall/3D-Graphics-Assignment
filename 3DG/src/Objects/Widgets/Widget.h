@@ -4,12 +4,19 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glew.h>
 
+enum class WidgetType
+{
+	WIDGET,
+	TRANSFORM
+};
+
 class Widget
 {
 protected:
-	bool active{ false };
+	bool active{ true };
 	glm::vec3 position{ 0.0f, 0.0f, 0.0f };
 	float size{ 1.0f };
+	WidgetType type{ WidgetType::WIDGET };
 
 public:
 	virtual void GUI();
@@ -25,6 +32,6 @@ public:
 	void SetPosition(glm::vec3 newPosition) { position = newPosition; }
 	void SetSize(float newSize) { size = newSize; }
 
-	Widget(bool visible = false, float widgetSize = 1.0f);
+	Widget(bool visible = false, float widgetSize = 1.0f, WidgetType widgetType = WidgetType::WIDGET);
 	virtual ~Widget();
 };

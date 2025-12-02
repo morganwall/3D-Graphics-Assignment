@@ -24,7 +24,7 @@ void Widget::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix
 	glUniformMatrix4fv(glGetUniformLocation(gShaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 }
 
-Widget::Widget(bool visible, float widgetSize) : active(visible), size(widgetSize)
+Widget::Widget(bool visible, float widgetSize, WidgetType widgetType) : active(visible), size(widgetSize), type(widgetType)
 {
 
 }

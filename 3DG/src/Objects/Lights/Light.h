@@ -3,16 +3,16 @@
 
 enum class LightType
 {
-	Directional,
-	Point,
-	Spot
+	DIRECTIONAL,
+	POINT,
+	SPOT
 };
 
 class Light : public SceneObject
 {
 protected:
 	// Light.
-	LightType type{ LightType::Directional };
+	LightType type{ LightType::DIRECTIONAL };
 	glm::vec3 colour{ 1.0f, 1.0f, 1.0f };
 	float intensity{ 1.0f };
 
@@ -31,5 +31,5 @@ public:
 	void SetColour(glm::vec3 lightColour) { colour = lightColour; }
 	void SetIntensity(float lightIntensity) { intensity = lightIntensity; }
 
-	Light(std::string objectName, LightType type = LightType::Point, glm::vec3 pos = { 0.0f, 0.0f, 0.0f }, glm::vec3 rot = { 0.0f, 0.0f, 0.0f });
+	Light(std::string objectName, LightType type = LightType::POINT, glm::vec3 pos = { 0.0f, 0.0f, 0.0f }, glm::vec3 rot = { 0.0f, 0.0f, 0.0f });
 };

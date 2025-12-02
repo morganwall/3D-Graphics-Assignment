@@ -16,5 +16,5 @@ public:
 	void Update(float deltaTime) override;
 	void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram) override;
 
-	Cube(std::string objectName = "Cube", glm::vec3 pos = {0.0f, 0.0f, 0.0f}, glm::vec3 rot = {0.0f, 0.0f, 0.0f});
+	Cube(std::string objectName = "Cube", glm::vec3 pos = {0.0f, 0.0f, 0.0f}, glm::vec3 rot = {0.0f, 0.0f, 0.0f}, glm::vec3 objectScale = {1.0f, 1.0f, 1.0f});
 };

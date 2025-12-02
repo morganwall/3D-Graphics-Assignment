@@ -186,5 +186,7 @@
     </None>
     <None Include="Data\Shaders\skybox.vert" />
     <None Include="Data\Shaders\skybox.frag" />
+    <None Include="Data\Shaders\widget.vert" />
+    <None Include="Data\Shaders\widget.frag" />
   </ItemGroup>
 </Project>

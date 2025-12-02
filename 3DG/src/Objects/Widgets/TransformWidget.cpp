@@ -23,7 +23,7 @@ void TransformWidget::Draw(const glm::mat4& viewMatrix, const glm::mat4& project
 	glBindVertexArray(0);
 }
 
-TransformWidget::TransformWidget()
+TransformWidget::TransformWidget(bool visible, float widgetSize, WidgetType widgetType) : Widget(visible, widgetSize, widgetType)
 {
 	// Create Vertices for Axis Lines.
 	vertices = 

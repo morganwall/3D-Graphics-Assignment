@@ -40,7 +40,7 @@ void SpotLight::ShaderSetup(GLuint gShaderProgram)
 	glUniform1f(glGetUniformLocation(gShaderProgram, "light.maxRange"), maxRange);
 }
 
-SpotLight::SpotLight(std::string objectName, glm::vec3 pos, glm::vec3 rot) : Light(objectName, LightType::Spot, pos, rot)
+SpotLight::SpotLight(std::string objectName, glm::vec3 pos, glm::vec3 rot) : Light(objectName, LightType::SPOT, pos, rot)
 {
 	// Set Object Type.
 	objectType = SceneObjectType::LIGHT;
