@@ -13,25 +13,20 @@ void SceneObject::DrawWidgets(const glm::mat4& viewMatrix, const glm::mat4& proj
 	{
 		// Check if it's Active.
 		if (!curWidget->GetActive())
-			return;
+			continue;
 
-		// Set Polygon Mode.
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		// Save Old Line Settings.
+		GLfloat oldLineWidth{ 1.0f };
+		glGetFloatv(GL_LINE_WIDTH, &oldLineWidth);
 
-		//// Set Shader.
-		//glUseProgram(gShaderProgram);
+		// Set New Line Width.
+		glLineWidth(5.0f);
 
-		//// Create Model Matrix.
-		//glm::mat4 modelMatrix{ glm::translate(glm::mat4(1.0f), position) };
-
-		//// Upload Matrices to Shader.
-		//glUniformMatrix4fv(glGetUniformLocation(gShaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
-		//glUniformMatrix4fv(glGetUniformLocation(gShaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
-		//glUniformMatrix4fv(glGetUniformLocation(gShaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-
-		//glBindVertexArray(vao);
-
+		// Draw.
 		curWidget->Draw(viewMatrix, projectionMatrix, gShaderProgram);
+
+		// Restore Line Settings.
+		glLineWidth(oldLineWidth);
 	}
 }
 

@@ -339,12 +339,25 @@ void Render(GLFWwindow* window)
 			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gShaderProgram);
 			break;
 		}
+	}
 
+	// Set Widget Depth Settings.
+	glDepthFunc(GL_ALWAYS);
+	glDepthMask(GL_FALSE);
+
+	// Second Object Loop to Draw Widgets. Less Efficient, but I want to Draw Widgets Last.
+	for (auto& curObject : sceneObjects)
+	{
+		// Don't Draw Widgets for Camera.
 		if (curObject->GetObjectType() == SceneObjectType::CAMERA)
 			continue;
 
 		curObject->DrawWidgets(camera->GetViewMatrix(), projectionMatrix, gWidgetShaderProgram);
 	}
+
+	// Restore Depth Settings.
+	glDepthFunc(GL_LESS);
+	glDepthMask(GL_TRUE);
 
 	// Create New ImGui Frame.
 	ImGui_ImplOpenGL3_NewFrame();
