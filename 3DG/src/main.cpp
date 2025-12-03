@@ -463,7 +463,7 @@ int main()
 	// Create Objects.
 	sceneObjects.push_back(camera);
 
-	sceneObjects.push_back(new Cube("Cube", { -1.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Cube("Cube", { -5.0f, 0.0f, 0.0f }));
 	sceneObjects.push_back(new Cube("Cube", { 1.0f, 0.0f, 0.0f }));
 	sceneObjects.push_back(new Terrain("Terrain"));
 	sceneObjects.push_back(light);
@@ -501,4 +501,5 @@ Add loading and rendering 3D models, with support for textures. !REQUIRED!
 	Maybe add hierarchical transformations, for example a rotating propellor on a plane.
 Make objects cast shadows.
 Make terrain texture tile. .SHOULD DO.
+Add ambient light intensity slider and colour picker to world settings window.
 */

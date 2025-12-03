@@ -15,7 +15,7 @@ void TransformWidget::Draw(const glm::mat4& viewMatrix, const glm::mat4& project
 	for (int i = 0; i < (sizeof(colours) / sizeof (colours[1])); i++)
 	{
 		// Draw Axis with it's Colour.
-		glUniform3fv(glGetUniformLocation(gShaderProgram, "colour"), 1, glm::value_ptr(colours[i]));
+		glUniform3fv(glGetUniformLocation(gShaderProgram, "baseColor"), 1, glm::value_ptr(colours[i]));
 		glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(i * 2 * sizeof(unsigned int)));
 	}
 
