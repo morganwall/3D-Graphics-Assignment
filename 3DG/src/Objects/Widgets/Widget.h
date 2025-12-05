@@ -22,16 +22,19 @@ protected:
 public:
 	virtual void GUI();
 	virtual void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram);
+	virtual void Update(float deltaTime);
 
 	// Getters.
 	bool GetActive() { return active; }
 	glm::vec3 GetPosition() { return position; }
 	float GetSize() { return size; }
+	WidgetType GetWidgetType() { return type; }
 
 	// Setters.
 	void SetActive(bool isActive) { active = isActive; }
 	void SetPosition(glm::vec3 newPosition) { position = newPosition; }
 	void SetSize(float newSize) { size = newSize; }
+	void SetWidgetType(WidgetType widgetType) { type = widgetType; }
 
 	Widget(bool visible = false, float widgetSize = 1.0f, WidgetType widgetType = WidgetType::WIDGET);
 	virtual ~Widget();

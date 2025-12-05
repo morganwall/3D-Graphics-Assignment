@@ -20,6 +20,7 @@ protected:
 public:
 	void GUIExtras() override;
 	void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram) override;
+	virtual void Update(float deltaTime) override;
 	virtual void ShaderSetup(GLuint gShaderProgram);
 
 	// Getters.

@@ -186,6 +186,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\fragment_shader.frag" />
+    <None Include="Data\Shaders\lightWidget.frag" />
+    <None Include="Data\Shaders\lightWidget.vert" />
     <None Include="Data\Shaders\skybox.frag" />
     <None Include="Data\Shaders\skybox.vert" />
     <None Include="Data\Shaders\vertex_shader.vert" />

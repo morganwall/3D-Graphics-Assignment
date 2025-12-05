@@ -17,6 +17,25 @@ void Light::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix,
 
 }
 
+void Light::Update(float deltaTime)
+{
+	// Loop through all of This Object's Widgets.
+	for (auto& curWidget : widgets)
+	{
+		// Update Position.
+		curWidget->SetPosition(position);
+
+		if (curWidget->GetWidgetType() == WidgetType::LIGHT)
+		{
+			// Cast the Widget to LightWidget.
+			LightWidget* lightWidget{ static_cast<LightWidget*>(curWidget.get()) };
+
+			// Update Widget Colour.
+			lightWidget->SetColour(colour);
+		}
+	}
+}
+
 void Light::ShaderSetup(GLuint gShaderProgram)
 {
 

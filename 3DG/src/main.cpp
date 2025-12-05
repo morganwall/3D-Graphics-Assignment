@@ -505,7 +505,6 @@ int main()
 /*
 TODO:
 Add all parts of Phong shading. .SHOULD DO.
-Add widgets that show the in-world location and the size of the lights, using ImGui.
 Add support for multiple lights at the same time.
 Add random and perlin noise height option to the terrain.
 Make objects and widgets clickable/selectable.
@@ -516,4 +515,5 @@ Make objects cast shadows.
 Make terrain texture tile. .SHOULD DO.
 Add ambient light intensity slider and colour picker to world settings window.
 Make the transform widgets only show for the selected object.
+Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
 */
