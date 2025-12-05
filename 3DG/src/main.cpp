@@ -508,11 +508,12 @@ Add all parts of Phong shading. .SHOULD DO.
 Add widgets that show the in-world location and the size of the lights, using ImGui.
 Add support for multiple lights at the same time.
 Add random and perlin noise height option to the terrain.
-Make objects clickable/selectable.
+Make objects and widgets clickable/selectable.
 Add a move and rotation widget to selected objects.
 Add loading and rendering 3D models, with support for textures. !REQUIRED!
 	Maybe add hierarchical transformations, for example a rotating propellor on a plane.
 Make objects cast shadows.
 Make terrain texture tile. .SHOULD DO.
 Add ambient light intensity slider and colour picker to world settings window.
+Make the transform widgets only show for the selected object.
 */

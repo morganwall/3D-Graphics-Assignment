@@ -7,7 +7,8 @@
 enum class WidgetType
 {
 	WIDGET,
-	TRANSFORM
+	TRANSFORM,
+	LIGHT
 };
 
 class Widget

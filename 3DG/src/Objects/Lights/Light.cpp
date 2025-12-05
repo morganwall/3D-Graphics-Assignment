@@ -27,6 +27,8 @@ Light::Light(std::string objectName = "Light", LightType lightType, glm::vec3 po
 	// Set Object Type.
 	objectType = SceneObjectType::LIGHT;
 
+	widgets.push_back(std::make_unique<LightWidget>(true, 0.25f));
+
 	hasMesh = false;
 	type = lightType;
 }

@@ -93,6 +93,9 @@
     <ClCompile Include="src\Objects\Widgets\TransformWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Objects\Widgets\LightWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\GLEW\eglew.h">
@@ -171,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Objects\Widgets\TransformWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Widgets\LightWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
