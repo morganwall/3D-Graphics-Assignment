@@ -6,13 +6,16 @@
 
 extern Light* light;
 
-void SceneObject::DrawWidgets(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram)
+void SceneObject::DrawWidgets(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram, bool isSelected)
 {
 	// Loop through Widgets.
 	for (auto& curWidget : widgets)
 	{
 		// Check if it's Active.
 		if (!curWidget->GetActive())
+			continue;
+
+		if (!isSelected && curWidget->GetWidgetType() == WidgetType::TRANSFORM)
 			continue;
 
 		// Save Old Line Settings.

@@ -45,7 +45,7 @@ protected:
 	std::vector<std::unique_ptr<Widget>> widgets;
 
 public:
-	void DrawWidgets(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram);
+	void DrawWidgets(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram, bool isSelected);
 	virtual void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram);
 	virtual void Update(float deltaTime);
 	void GUI();

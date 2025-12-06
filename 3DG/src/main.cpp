@@ -352,7 +352,12 @@ void Render(GLFWwindow* window)
 		if (curObject->GetObjectType() == SceneObjectType::CAMERA)
 			continue;
 
-		curObject->DrawWidgets(camera->GetViewMatrix(), projectionMatrix, gWidgetShaderProgram);
+		// Check if the Current Object is Selected.
+		bool isSelected{ false };
+		if (gui->GetSelectedObject() == curObject)
+			isSelected = true;
+
+		curObject->DrawWidgets(camera->GetViewMatrix(), projectionMatrix, gWidgetShaderProgram, isSelected);
 	}
 
 	// Restore Depth Settings.
