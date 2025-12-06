@@ -15,6 +15,7 @@ struct Light
 };
 
 uniform Light light; // Current light.
+uniform float ambient; // Ambient Light Intensity.
 uniform vec3 baseColour; // Base colour.
 uniform bool hasTexture; // Does the object have a texture.
 uniform sampler2D dTexture; // The texture sampler.
@@ -49,14 +50,13 @@ void main()
     // Calculate Attenuation, Light Direction, and Ambient Light.
     float attenuation = 0.0f;
     vec3 curLightDirection;
-    float ambientLight = 0.25f;
     if (light.type == 1 || light.type == 2) // Check if the light is a point or spot light.
     {
         // Check Range.
         float distance = length(light.position - vertPos);
         if (distance > light.maxRange) // Check if what we're trying to light is outside of the maximum light range.
         {
-            fragColor = vec4(albedo * ambientLight, 1.0f);
+            fragColor = vec4(albedo * ambient, 1.0f);
             return;
         }
 
@@ -88,7 +88,7 @@ void main()
     float diffuse = max(dot(vertNormalsNormalised, curLightDirection), 0.0f);
 
     // Calculate Final Colour.
-    vec3 finalColour = albedo * (ambientLight + attenuation * spotIntensity * diffuse * light.intensity) * light.colour;
+    vec3 finalColour = albedo * (ambient + attenuation * spotIntensity * diffuse * light.intensity) * light.colour;
 
     fragColor = vec4(finalColour, 1.0f);
 }

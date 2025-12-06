@@ -194,7 +194,7 @@ void GUI::InspectorWindow()
 	}
 }
 
-void GUI::WorldSettingsWindow(glm::vec4& clearColour)
+void GUI::WorldSettingsWindow(glm::vec4& clearColour, float& ambientIntensity)
 {
 	if (showWorldSettingsWindow)
 	{
@@ -209,15 +209,21 @@ void GUI::WorldSettingsWindow(glm::vec4& clearColour)
 		ImGui::ColorPicker3("Clear Colour", &clearColour.x, ImGuiColorEditFlags_DisplayRGB);
 		ImGui::PopItemWidth();
 
+		ImGui::PushItemWidth(150.0f);
+		if (ImGui::DragFloat("Ambient Light Intensity", &ambientIntensity, 0.05f))
+			if (ambientIntensity < 0.0f)
+				ambientIntensity = 0.0f;
+		ImGui::PopItemWidth();
+
 		ImGui::End();
 	}
 }
 
-void GUI::DrawGUI(GLFWwindow* window, glm::vec4& clearColour)
+void GUI::DrawGUI(GLFWwindow* window, glm::vec4& clearColour, float& ambientIntensity)
 {
 	Viewport(window);
 	InspectorWindow();
-	WorldSettingsWindow(clearColour);
+	WorldSettingsWindow(clearColour, ambientIntensity);
 	ObjectsWindow();
 
 	if (showImGuiDemo)

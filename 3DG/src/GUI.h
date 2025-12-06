@@ -43,9 +43,9 @@ public:
 	void Viewport(GLFWwindow* window);
 	void ObjectsWindow();
 	void InspectorWindow();
-	void WorldSettingsWindow(glm::vec4& clearColour);
+	void WorldSettingsWindow(glm::vec4& clearColour, float& ambientIntensity);
 
-	void DrawGUI(GLFWwindow* window, glm::vec4& clearColour);
+	void DrawGUI(GLFWwindow* window, glm::vec4& clearColour, float& ambientIntensity);
 
 	GUI(std::vector<SceneObject*>& sceneObjectVector) : sceneObjects(sceneObjectVector) {};
 	~GUI() {};

@@ -15,6 +15,7 @@ GUI* gui{ nullptr };
 GLuint gShaderProgram{ 0 };
 GLuint gSkyboxShaderProgram{ 0 };
 GLuint gWidgetShaderProgram{ 0 };
+GLuint gLightWidgetShaderProgram{ 0 };
 std::string wndTitle{ "3D Graphics" };
 std::vector<SceneObject*> sceneObjects;
 Camera* camera{ nullptr };
@@ -22,6 +23,7 @@ glm::vec2 mousePosOld{ 0.0f, 0.0f };
 glm::vec2 mousePosBeforeMenu{ 0.0f, 0.0f }; // Position of the mouse just before the menu is opened. Is used to restore the same mouse position once the menu is closed.
 bool firstMenuFrame{ true };
 glm::vec4 clearColour{ 0.35f, 0.43f, 0.49f, 0.0f };
+float ambientIntensity{ 0.20f };
 Light* light{ nullptr };
 glm::mat4 projectionMatrix;
 
@@ -242,13 +244,31 @@ void CreateShaders()
 
 	// Link Shaders.
 	KeithHelpers::LinkProgramShaders(gWidgetShaderProgram);
-	// ----- Skybox Shader - End ------
+	// ----- Widget Shader - End ------
+
+	// ----- Light Widget Shader - Start ------
+	// Create Shaders.
+	GLuint lightWidgetVertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/lightWidget.vert") };
+	GLuint lightWidgetFragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/lightWidget.frag") };
+	gLightWidgetShaderProgram = glCreateProgram();
+
+	// Create and Attach Shader Program.
+	glAttachShader(gLightWidgetShaderProgram, lightWidgetVertexShader);
+	glAttachShader(gLightWidgetShaderProgram, lightWidgetFragmentShader);
+
+	// Link Shaders.
+	KeithHelpers::LinkProgramShaders(gLightWidgetShaderProgram);
+	// ----- Light Widget Shader - End ------
 
 	// Delete Shader Objects.
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 	glDeleteShader(skyboxVertexShader);
 	glDeleteShader(skyboxFragmentShader);
+	glDeleteShader(widgetVertexShader);
+	glDeleteShader(widgetFragmentShader);
+	glDeleteShader(lightWidgetVertexShader);
+	glDeleteShader(lightWidgetFragmentShader);
 
 	std::cout << "[+] Shaders Created and Linked.\n";
 }
@@ -336,6 +356,7 @@ void Render(GLFWwindow* window)
 
 		default:
 			glUseProgram(gShaderProgram);
+			glUniform1f(glGetUniformLocation(gShaderProgram, "ambient"), ambientIntensity);
 			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gShaderProgram);
 			break;
 		}
@@ -370,7 +391,7 @@ void Render(GLFWwindow* window)
 	ImGui::NewFrame();
 
 	// Our GUI.
-	gui->DrawGUI(window, clearColour);
+	gui->DrawGUI(window, clearColour, ambientIntensity);
 
 	// Render GUI.
 	ImGui::Render();
@@ -518,8 +539,7 @@ Add a move and rotation widget to selected objects.
 Add loading and rendering 3D models, with support for textures. !REQUIRED!
 	Maybe add hierarchical transformations, for example a rotating propellor on a plane.
 Make objects cast shadows.
-Make terrain texture tile. .SHOULD DO.
-Add ambient light intensity slider and colour picker to world settings window.
-Make the transform widgets only show for the selected object.
+Make terrain texture tile. .SHOULD DO
+Add a widget to show the light radius/cone.
 Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
 */
