@@ -504,6 +504,7 @@ int main()
 
 /*
 TODO:
+Add different icons to the light widget.
 Add all parts of Phong shading. .SHOULD DO.
 Add support for multiple lights at the same time.
 Add random and perlin noise height option to the terrain.

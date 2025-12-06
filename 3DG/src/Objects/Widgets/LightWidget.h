@@ -2,6 +2,7 @@
 #include "Widget.h"
 #include <iostream>
 #include <vector>
+#include "../Lights/Light.h"
 
 class LightWidget : public Widget
 {
@@ -11,7 +12,7 @@ class LightWidget : public Widget
 	ebo{ 0 }; // Element buffer object.
 	std::vector<glm::vec3> vertices;
 	std::vector<unsigned int> indices;
-
+	LightType lightType{ LightType::DIRECTIONAL };
 
 public:
 	void GUI() override;
@@ -23,6 +24,6 @@ public:
 	// Setters.
 	void SetColour(glm::vec3 widgetColour) { colour = widgetColour; }
 
-	LightWidget(bool visible = false, float widgetSize = 1.0f, WidgetType widgetType = WidgetType::LIGHT);
+	LightWidget(bool visible = false, float widgetSize = 1.0f, WidgetType widgetType = WidgetType::LIGHT, LightType parentLightType = LightType::DIRECTIONAL);
 	~LightWidget();
 };

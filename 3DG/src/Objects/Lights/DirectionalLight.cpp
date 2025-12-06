@@ -1,4 +1,5 @@
 #include "DirectionalLight.h"
+#include "../Widgets/LightWidget.h"
 
 void DirectionalLight::GUIExtras()
 {
@@ -30,4 +31,7 @@ DirectionalLight::DirectionalLight(std::string objectName, glm::vec3 pos, glm::v
 {
 	// Set Object Type.
 	objectType = SceneObjectType::LIGHT;
+
+	// Create Light Widget.
+	widgets.push_back(std::make_unique<LightWidget>(true, 0.25f, WidgetType::LIGHT, LightType::DIRECTIONAL));
 }

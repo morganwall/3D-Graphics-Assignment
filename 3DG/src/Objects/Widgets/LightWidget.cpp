@@ -42,7 +42,7 @@ void LightWidget::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionM
 	glBindVertexArray(0);
 }
 
-LightWidget::LightWidget(bool visible, float widgetSize, WidgetType widgetType) : Widget(visible, widgetSize, widgetType)
+LightWidget::LightWidget(bool visible, float widgetSize, WidgetType widgetType, LightType parentLightType) : Widget(visible, widgetSize, widgetType), lightType(parentLightType)
 {
 	// Create Square Vertices.
 	vertices =

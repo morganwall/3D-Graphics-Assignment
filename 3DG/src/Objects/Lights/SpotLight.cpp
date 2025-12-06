@@ -1,4 +1,5 @@
 #include "SpotLight.h"
+#include "../Widgets/LightWidget.h"
 
 void SpotLight::GUIExtras()
 {
@@ -44,4 +45,7 @@ SpotLight::SpotLight(std::string objectName, glm::vec3 pos, glm::vec3 rot) : Lig
 {
 	// Set Object Type.
 	objectType = SceneObjectType::LIGHT;
+
+	// Create Light Widget.
+	widgets.push_back(std::make_unique<LightWidget>(true, 0.25f, WidgetType::LIGHT, LightType::SPOT));
 }

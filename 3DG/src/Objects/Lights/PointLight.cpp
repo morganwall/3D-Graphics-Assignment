@@ -1,4 +1,5 @@
 #include "PointLight.h"
+#include "../Widgets/LightWidget.h"
 
 void PointLight::GUIExtras()
 {
@@ -33,4 +34,7 @@ PointLight::PointLight(std::string objectName, glm::vec3 pos, glm::vec3 rot) : L
 {
 	// Set Object Type.
 	objectType = SceneObjectType::LIGHT;
+
+	// Create Light Widget.
+	widgets.push_back(std::make_unique<LightWidget>(true, 0.25f, WidgetType::LIGHT, LightType::POINT));
 }
