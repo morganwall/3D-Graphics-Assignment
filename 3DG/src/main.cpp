@@ -530,16 +530,17 @@ int main()
 
 /*
 TODO:
-Add different icons to the light widget.
-Add all parts of Phong shading. .SHOULD DO.
-Add support for multiple lights at the same time.
-Add random and perlin noise height option to the terrain.
-Make objects and widgets clickable/selectable.
-Add a move and rotation widget to selected objects.
-Add loading and rendering 3D models, with support for textures. !REQUIRED!
-	Maybe add hierarchical transformations, for example a rotating propellor on a plane.
-Make objects cast shadows.
-Make terrain texture tile. .SHOULD DO
-Add a widget to show the light radius/cone.
-Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
+01. Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
+02. Add a widget to show the light radius/cone/direction(for directional lights), called LightPreviewWidget.
+03. Split Default shader into several different shaders. I.E. remove the terrain shading from it.
+04. Add all parts of Phong shading. .SHOULD DO.
+05. Add loading and rendering 3D models, with support for textures. !REQUIRED!
+		Maybe add hierarchical transformations, for example a rotating propellor on a plane.
+06. Make objects cast shadows.
+07. Add support for multiple lights at the same time.
+08. Add a rotation widget to selected objects.
+09. Make terrain texture tile. .SHOULD DO.
+10. Add different icons to the light widget.
+11. Add random and perlin noise height option to the terrain. .SHOULD DO.
+12. Make objects and widgets clickable/selectable.
 */
