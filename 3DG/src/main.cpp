@@ -1,5 +1,5 @@
 #include "Keith Helpers.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "Objects/SceneObject.h"
 #include "Objects/Cube.h"
 #include "Objects/Terrain.h"
@@ -375,7 +375,7 @@ void Render(GLFWwindow* window)
 
 		// Check if the Current Object is Selected.
 		bool isSelected{ false };
-		if (gui->GetSelectedObject() == curObject)
+		if (gui->GetObjectsWindow()->GetSelectedObject() == curObject)
 			isSelected = true;
 
 		curObject->DrawWidgets(camera->GetViewMatrix(), projectionMatrix, gWidgetShaderProgram, isSelected);
@@ -412,15 +412,19 @@ void Input(GLFWwindow* window, float deltaTime) // TODO: Move to GUI class.
 {
 	// GUI Shortcuts.
 	if (ImGui::IsKeyPressed(ImGuiKey_F1))
-		gui->SetShowObjectsWindow(!gui->GetShowObjectsWindow());
+		gui->GetObjectsWindow()->SetActive(!gui->GetObjectsWindow()->GetActive());
 	if (ImGui::IsKeyPressed(ImGuiKey_F2))
-		gui->SetShowInspectorWindow(!gui->GetShowInspectorWindow());
+		gui->GetInspectorWindow()->SetActive(!gui->GetInspectorWindow()->GetActive());
 	if (ImGui::IsKeyPressed(ImGuiKey_F3))
-		gui->SetShowWorldSettingsWindow(!gui->GetShowWorldSettingsWindow());
+		gui->GetWorldSettingsWindow()->SetActive(!gui->GetWorldSettingsWindow()->GetActive());
+	if (ImGui::IsKeyPressed(ImGuiKey_F4))
+		gui->GetProjectWindow()->SetActive(!gui->GetProjectWindow()->GetActive());
+	if (ImGui::IsKeyPressed(ImGuiKey_F5))
+		gui->GetConsoleWindow()->SetActive(!gui->GetConsoleWindow()->GetActive());
 
 	if (ImGui::IsKeyPressed(ImGuiKey_Delete))
-		if (gui->GetSelectedObject())
-			gui->DeleteObject(gui->GetSelectedObject());
+		if (gui->GetObjectsWindow()->GetSelectedObject())
+			gui->GetObjectsWindow()->DeleteObject(gui->GetObjectsWindow()->GetSelectedObject());
 
 	// Save the Pre-GUI Mouse Position.
 	if (firstMenuFrame)
