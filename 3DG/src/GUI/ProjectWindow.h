@@ -7,8 +7,7 @@
 
 class ProjectWindow : public Window
 {
-	std::filesystem::path currentPath{ "Data/" };
-
+	std::filesystem::path currentPath{ "Data" };
 
 public:
 	virtual void Draw() override;
