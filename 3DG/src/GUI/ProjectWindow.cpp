@@ -45,7 +45,7 @@ void ProjectWindow::Draw()
 
 	ImGui::BeginChild("Right", { 0.0f, wndSize.y }, true);
 
-    ImGui::BeginChild("RightDirectory", { 0.0f, wndSize.y / 10.0f }, true, ImGuiWindowFlags_NoScrollbar);
+    ImGui::BeginChild("RightDirectory", { 0.0f, 36.0f }, true, ImGuiWindowFlags_NoScrollbar);
 	if (ImGui::Button(".."))
 		if (currentPath.has_parent_path()) // Check if the directory has a parent path.
 			currentPath = currentPath.parent_path(); // Go to parent directory.
@@ -53,20 +53,40 @@ void ProjectWindow::Draw()
 	ImGui::Text(currentPath.string().c_str());
 	ImGui::EndChild(); // RightDirectory End.
 
-	ImGui::BeginChild("RightBrowser", { 0.0f, 0.0f }, true);
+	ImGui::BeginChild("FileBrowser", { 0.0f, 0.0f }, true);
+
+	// Get File Browser Size.
+	ImVec2 browserSize{ ImGui::GetContentRegionAvail() };
+
+	int curColumn{ 0 };
+
 	// Loop Through all Files and Directories within currentPath.
 	for (const auto& entry : std::filesystem::directory_iterator(currentPath))
 	{
+		curColumn++;
+
 		// Get the Current File Name.
-		std::string filename = entry.path().filename().string();
+		std::string filename{ entry.path().filename().string() };
 
 		// Create ImGui Text Element for the File or Directory.
-		if (ImGui::Button(filename.c_str(), { wndSize.x / 5.0f, wndSize.y / 5.0f }))
-			currentPath /= filename;
+		if (ImGui::Button(filename.c_str(), { browserSize.x / browserNumColumns - 6.0f, 50.0f }))
+		{
+			// Check if the Button is a Folder.
+			if (entry.is_directory())
+				currentPath /= filename;
+			// else
+				// TODO: Add File Viewing Logic.
+		}
 
-		ImGui::SameLine();
+		// See if we should Draw on the Same Row.
+		if (curColumn < browserNumColumns)
+			ImGui::SameLine();
+
+		if (curColumn >= browserNumColumns)
+			curColumn = 0;
 	}
-	ImGui::EndChild(); // RightBrowser End.
+
+	ImGui::EndChild(); // FileBrowser End.
 
 	ImGui::EndChild(); // Right Child End.
 
