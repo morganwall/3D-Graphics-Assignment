@@ -534,20 +534,22 @@ int main()
 
 /*
 TODO:
-01. Add Project window.
-	When a file is clicked, show it in a popup window.
-02. Add Console window, and include output strings there.
-03. Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
-04. Add a widget to show the light radius/cone/direction(for directional lights), called LightPreviewWidget.
-05. Split Default shader into several different shaders. I.E. remove the terrain shading from it.
-06. Add all parts of Phong shading. .SHOULD DO.
-07. Add loading and rendering 3D models, with support for textures. !REQUIRED!
+01. Add Console window, and include output strings there.
+02. Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
+03. Add a widget to show the light radius/cone/direction(for directional lights), called LightPreviewWidget.
+04. Split Default shader into several different shaders. I.E. remove the terrain shading from it.
+05. Add all parts of Phong shading. .SHOULD DO.
+06. Add loading and rendering 3D models, with support for textures. !REQUIRED!
 		Maybe add hierarchical transformations, for example a rotating propellor on a plane.
-08. Make objects cast shadows.
-09. Add support for multiple lights at the same time.
-10. Add a rotation widget to selected objects.
-11. Make terrain texture tile. .SHOULD DO.
-12. Add different icons to the light widget.
-13. Add random and perlin noise height option to the terrain. .SHOULD DO.
-14. Make objects and widgets clickable/selectable.
+07. Make objects cast shadows.
+08. Add support for multiple lights at the same time.
+09. Add a rotation widget to selected objects.
+10. Make terrain texture tile. .SHOULD DO.
+11. Add different icons to the light widget.
+12. Add random and perlin noise height option to the terrain. .SHOULD DO.
+13. Make objects and widgets clickable/selectable.
+14. Change all objects to use a Vertex struct, rather than individual vectors for vertex position, and normals.
+		Move commonly used structs to a separate header, with a namespace.
+15. Change all objects to use the new Mesh class, as some objects may want multiple meshes.
+16. Make every part of the dir string clickable.
 */

@@ -18,7 +18,8 @@ enum class SceneObjectType
 	TERRAIN,
 	CAMERA,
 	LIGHT,
-	SKYBOX
+	SKYBOX,
+	MODEL
 };
 
 class SceneObject
