@@ -5,6 +5,7 @@
 #include "Objects/Terrain.h"
 #include "Objects/Camera.h"
 #include "Objects/Skybox.h"
+#include "Objects/Model.h"
 #include "Objects/Lights/Light.h"
 #include "Objects/Lights/DirectionalLight.h"
 #include "Objects/Lights/PointLight.h"
@@ -511,6 +512,7 @@ int main()
 	sceneObjects.push_back(new Terrain("Terrain"));
 	sceneObjects.push_back(light);
 	sceneObjects.push_back(new Skybox());
+	sceneObjects.push_back(new Model("Data/Models/AquaPig/aqua_pig_xforms.txt"));
 
 	// Main Loop.
 	while (!glfwWindowShouldClose(window))

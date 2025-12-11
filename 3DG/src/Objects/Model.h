@@ -7,9 +7,10 @@ class Model : public SceneObject
 {
 	std::vector<Mesh> meshes;
 	std::map<std::string, Engine::Texture> textures;
-	std::string path;
+	std::string dir;
 
-	void LoadModel(const std::string& path);
+	//bool LoadModel(const std::string path);
+	//void HandleNode(aiNode* node, const aiScene* scene);
 
 public:
 	void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram);
