@@ -62,7 +62,6 @@ bool Terrain::LoadTexture(const std::string& path)
 	// Generate Texture.
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureSize.x, textureSize.y, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels); // Send pixel data to GPU.
 
 	// Set Sample Settings.
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -70,7 +69,10 @@ bool Terrain::LoadTexture(const std::string& path)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureSize.x, textureSize.y, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels); // Send pixel data to GPU.
+
 	FreeImage_Unload(texture);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	std::cout << "[+] Texture Loaded.\n";
 	return true;

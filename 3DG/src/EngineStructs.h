@@ -29,7 +29,7 @@ namespace Engine
 	struct Texture
 	{
 		GLuint id; // The texture's ID.
-		std::string path; // The texture's path.
-		TextureType type; // The type of texture.
+		std::string path = ""; // The texture's path.
+		TextureType type = TextureType::ALBEDO; // The type of texture.
 	};
 }

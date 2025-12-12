@@ -17,6 +17,7 @@ GLuint gShaderProgram{ 0 };
 GLuint gSkyboxShaderProgram{ 0 };
 GLuint gWidgetShaderProgram{ 0 };
 GLuint gLightWidgetShaderProgram{ 0 };
+GLuint gModelShaderProgram{ 0 };
 std::string wndTitle{ "3D Graphics" };
 std::vector<SceneObject*> sceneObjects;
 Camera* camera{ nullptr };
@@ -261,6 +262,20 @@ void CreateShaders()
 	KeithHelpers::LinkProgramShaders(gLightWidgetShaderProgram);
 	// ----- Light Widget Shader - End ------
 
+	// ----- Light Widget Shader - Start ------
+	// Create Shaders.
+	GLuint modelVertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/model.vert") };
+	GLuint modelFragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/fragment_shader.frag") };
+	gModelShaderProgram = glCreateProgram();
+
+	// Create and Attach Shader Program.
+	glAttachShader(gModelShaderProgram, modelVertexShader);
+	glAttachShader(gModelShaderProgram, modelFragmentShader);
+
+	// Link Shaders.
+	KeithHelpers::LinkProgramShaders(gModelShaderProgram);
+	// ----- Light Widget Shader - End ------
+
 	// Delete Shader Objects.
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
@@ -270,6 +285,8 @@ void CreateShaders()
 	glDeleteShader(widgetFragmentShader);
 	glDeleteShader(lightWidgetVertexShader);
 	glDeleteShader(lightWidgetFragmentShader);
+	glDeleteShader(modelVertexShader);
+	glDeleteShader(modelFragmentShader);
 
 	std::cout << "[+] Shaders Created and Linked.\n";
 }
@@ -353,6 +370,11 @@ void Render(GLFWwindow* window)
 		case SceneObjectType::SKYBOX:
 			glUseProgram(gSkyboxShaderProgram);
 			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gSkyboxShaderProgram);
+			break;
+
+		case SceneObjectType::MODEL:
+			glUseProgram(gShaderProgram); // TODO: Replace with Model Shader.
+			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gShaderProgram);
 			break;
 
 		default:
@@ -507,12 +529,16 @@ int main()
 	// Create Objects.
 	sceneObjects.push_back(camera);
 
-	sceneObjects.push_back(new Cube("Cube", { -5.0f, 0.0f, 0.0f }));
-	sceneObjects.push_back(new Cube("Cube", { 1.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Cube("Cube", { -10.0f, 0.0f, -10.0f }));
 	sceneObjects.push_back(new Terrain("Terrain"));
 	sceneObjects.push_back(light);
 	sceneObjects.push_back(new Skybox());
-	sceneObjects.push_back(new Model("Data/Models/AquaPig/aqua_pig_xforms.txt"));
+	sceneObjects.push_back(new Model("Data/Models/Apple/apple.obj", { -10.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.1f, 0.1f, 0.1f }));
+	sceneObjects.push_back(new Model("Data/Models/Bot/Bee animated.fbx", { -10.0f, 0.0f, 10.0f }, { 0.0f, 0.0f, 0.0f }, { 0.1f, 0.1f, 0.1f }));
+	sceneObjects.push_back(new Model("Data/Models/Jeep/jeep.obj", { -10.0f, 0.0f, 20.0f }, { 0.0f, 0.0f, 0.0f }, { 0.01f, 0.01f, 0.01f }));
+	sceneObjects.push_back(new Model("Data/Models/Mummy/mummy.x", { -10.0f, 0.0f, 30.0f }, { 0.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Model("Data/Models/Sphere/sphere.obj", { -10.0f, 0.0f, 40.0f }, { 0.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Model("Data/Models/Spider/spider.x", { -10.0f, 0.0f, 50.0f }, { 0.0f, 0.0f, 0.0f }));
 
 	// Main Loop.
 	while (!glfwWindowShouldClose(window))
