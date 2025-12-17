@@ -147,6 +147,7 @@
     <ClCompile Include="src\GUI\Window.cpp" />
     <ClCompile Include="src\GUI\WorldSettingsWindow.cpp" />
     <ClCompile Include="src\Keith Helpers.cpp" />
+    <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\Objects\Camera.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\GUI\WorldSettingsWindow.h" />
     <ClInclude Include="src\Keith Helpers.h" />
     <ClInclude Include="src\GUI\GUI.h" />
+    <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Objects\Camera.h" />
     <ClInclude Include="src\Objects\Lights\DirectionalLight.h" />
     <ClInclude Include="src\Objects\Lights\Light.h" />

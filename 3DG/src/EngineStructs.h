@@ -2,6 +2,7 @@
 #include <string>
 #include <glm/glm.hpp>
 #include <glew.h>
+#include <imgui.h>
 
 namespace Engine
 {
@@ -31,5 +32,25 @@ namespace Engine
 		GLuint id; // The texture's ID.
 		std::string path = ""; // The texture's path.
 		TextureType type = TextureType::ALBEDO; // The type of texture.
+	};
+
+	enum class LogType
+	{
+		INFO,
+		ERROR,
+		SUCCESS,
+		CUSTOM
+	};
+
+	struct LoggerMsg
+	{
+		std::string name = "Name";
+		std::string description = "Description";
+		LogType type = LogType::INFO;
+		ImColor colour = { 1.0f, 1.0f, 1.0f, 1.0f };
+		bool toGUI = true;
+		bool toConsole = true;
+
+		LoggerMsg(std::string name = "Name", std::string description = "Description", LogType type = LogType::INFO, ImColor colour = {1.0f, 1.0f, 1.0f, 1.0f}, bool toGUI = true, bool toConsole = true) : name(name), description(description), type(type), colour(colour), toGUI(toGUI), toConsole(toConsole) {}
 	};
 }

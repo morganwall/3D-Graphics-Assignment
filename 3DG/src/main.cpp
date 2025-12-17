@@ -1,4 +1,5 @@
 #include "Keith Helpers.h"
+#include "Logger.h"
 #include "GUI/GUI.h"
 #include "Objects/SceneObject.h"
 #include "Objects/Cube.h"
@@ -11,6 +12,7 @@
 #include "Objects/Lights/PointLight.h"
 #include "Objects/Lights/SpotLight.h"
 
+Logger* logger{ nullptr };
 glm::ivec2 wndSize{ 0, 0 };
 GUI* gui{ nullptr };
 GLuint gShaderProgram{ 0 };
@@ -518,6 +520,9 @@ int main()
 	// Create Menu.
 	gui = new GUI(sceneObjects);
 
+	// Create Message Logger.
+	logger = new Logger(gui->GetConsoleWindow());
+
 	// Create Camera.
 	camera = new Camera();
 
@@ -562,7 +567,6 @@ int main()
 
 /*
 TODO:
-01. Add Console window, and include output strings there.
 02. Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
 03. Add a widget to show the light radius/cone/direction(for directional lights), called LightPreviewWidget.
 04. Split Default shader into several different shaders. I.E. remove the terrain shading from it.

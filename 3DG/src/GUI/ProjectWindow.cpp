@@ -60,6 +60,12 @@ void ProjectWindow::Draw()
 
 	int curColumn{ 0 };
 
+	if (ImGui::Button("..", { browserSize.x / browserNumColumns - 6.0f, 50.0f }))
+		if (currentPath.has_parent_path()) // Check if the directory has a parent path.
+			currentPath = currentPath.parent_path(); // Go to parent directory.
+
+	ImGui::SameLine();
+
 	// Loop Through all Files and Directories within currentPath.
 	for (const auto& entry : std::filesystem::directory_iterator(currentPath))
 	{

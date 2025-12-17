@@ -1,4 +1,7 @@
 #include "Skybox.h"
+#include "../Logger.h"
+
+extern Logger* logger;
 
 void Skybox::GUIExtras()
 {
@@ -111,7 +114,7 @@ bool Skybox::LoadCubemap()
 	// Check Number of Faces.
 	if (faces.size() != 6)
 	{
-		std::cout << "[!] Not Enough Cubemap Faces!\n";
+		logger->Add(new Engine::LoggerMsg("Cubemap", "Not Enough Cubemap Faces!", Engine::LogType::ERROR));
 		return false;
 	}
 
@@ -130,8 +133,9 @@ bool Skybox::LoadCubemap()
 		// Check that the File Format is Supported by FreeImage.
 		if (fileFormat == FIF_UNKNOWN)
 		{
-			std::cout << "[!] Unknown File Type!\n";
-			std::cout << "[!] Failed to Load Cubemap Face!\n";
+			logger->Add(new Engine::LoggerMsg("Cubemap", "Unknown File Type!", Engine::LogType::ERROR));
+			logger->Add(new Engine::LoggerMsg("Cubemap", "Failed to Load Cubemap Face!", Engine::LogType::ERROR));
+
 			return false;
 		}
 
@@ -143,7 +147,7 @@ bool Skybox::LoadCubemap()
 		// Check that the Image was Loaded.
 		if (!dib)
 		{
-			std::cout << "[!] Failed to Load Cubemap Face Image!\n";
+			logger->Add(new Engine::LoggerMsg("Cubemap", "Failed to Load Cubemap Face Image!", Engine::LogType::ERROR));
 			return false;
 		}
 
@@ -166,7 +170,7 @@ bool Skybox::LoadCubemap()
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	std::cout << "[+] Cubemap Loaded.\n";
+	logger->Add(new Engine::LoggerMsg("Cubemap", "Cubemap Loaded.", Engine::LogType::SUCCESS));
 
 	return true;
 }
@@ -178,7 +182,7 @@ Skybox::Skybox(std::string objectName, std::string cubemapName, SkyboxMode skybo
 
 	if (!LoadCubemap())
 	{
-		std::cout << "[!] Failed to Load Skybox!\n";
+		logger->Add(new Engine::LoggerMsg("Skybox", "Failed to Load Skybox!", Engine::LogType::ERROR));
 		return;
 	}
 
@@ -276,7 +280,7 @@ Skybox::Skybox(std::string objectName, std::string cubemapName, SkyboxMode skybo
 	// Ensure that the Buffer is Correctly Terminated.
 	cubemapDirBuffer[sizeof(cubemapDirBuffer) - 1] = '\0';
 
-	std::cout << "[+] Skybox Created.\n";
+	logger->Add(new Engine::LoggerMsg("Skybox", "Skybox Created.", Engine::LogType::SUCCESS));
 }
 
 Skybox::~Skybox()

@@ -1,6 +1,9 @@
 #include "Model.h"
 #include <iostream>
 #include <FreeImage.h>
+#include "../Logger.h"
+
+extern Logger* logger;
 
 GLuint Model::LoadTextureFromFile(const std::string& path)
 {
@@ -8,7 +11,8 @@ GLuint Model::LoadTextureFromFile(const std::string& path)
 	FREE_IMAGE_FORMAT fileFormat{ FreeImage_GetFileType(path.c_str()) };
 	if (fileFormat == FIF_UNKNOWN)
 	{
-		std::cout << "[!] Unknown File Type!\n";
+		logger->Add(new Engine::LoggerMsg("File", "Unknown File Type!", Engine::LogType::ERROR));
+		
 		return 0;
 	}
 
@@ -17,7 +21,7 @@ GLuint Model::LoadTextureFromFile(const std::string& path)
 	file = FreeImage_ConvertTo32Bits(file);
 	if (!file)
 	{
-		std::cout << "[!] Failed to Load File!\n";
+		logger->Add(new Engine::LoggerMsg("File", "Failed to Load the File!", Engine::LogType::ERROR));
 		return 0;
 	}
 
@@ -44,7 +48,7 @@ GLuint Model::LoadTextureFromFile(const std::string& path)
 	FreeImage_Unload(file);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	std::cout << "[+] Texture Loaded.\n";
+	logger->Add(new Engine::LoggerMsg("Texture", "Texture Loaded.", Engine::LogType::SUCCESS));
 
 	return textureID;
 }
@@ -225,14 +229,17 @@ Model::Model(const std::string path, glm::vec3 pos, glm::vec3 rot, glm::vec3 obj
 	// Check that Scene is Valid.
 	if (!scene)
 	{
-		std::cout << "[!] Error loading model: " << importer.GetErrorString() << "\n";
+		std::string tempString{ "Error Loading Model: "};
+		tempString += importer.GetErrorString();
+		tempString += "!";
+		logger->Add(new Engine::LoggerMsg("Model", tempString.c_str(), Engine::LogType::ERROR));
 		return;
 	}
 
 	// Get All Model Nodes.
 	GetNodes(scene, scene->mRootNode);
 
-	std::cout << "[+] Successfully loaded model: " << path << "\n";
+	logger->Add(new Engine::LoggerMsg("Model", "Successfully Loaded Model.", Engine::LogType::SUCCESS));
 }
 
 Model::~Model()

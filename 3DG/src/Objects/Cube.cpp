@@ -1,4 +1,7 @@
 #include "Cube.h"
+#include "../Logger.h"
+
+extern Logger* logger;
 
 void Cube::GUIExtras()
 {
@@ -195,5 +198,5 @@ Cube::Cube(std::string objectName, glm::vec3 pos, glm::vec3 rot, glm::vec3 objec
 
 	glBindVertexArray(0);
 
-	std::cout << "[+] Cube Created.\n";
+	logger->Add(new Engine::LoggerMsg("Cube", "Cube Created Successfully.", Engine::LogType::SUCCESS));
 }
