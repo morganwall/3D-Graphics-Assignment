@@ -1,4 +1,7 @@
 #include "LightWidget.h"
+#include "../../Logger.h"
+
+extern Logger* logger;
 
 void LightWidget::GUI()
 {
@@ -82,7 +85,7 @@ LightWidget::LightWidget(bool visible, float widgetSize, WidgetType widgetType, 
 	// Unbind Vertex Array for Safety.
 	glBindVertexArray(0);
 
-	std::cout << "[+] Light Widget Created.\n";
+	logger->Add(new Engine::LoggerMsg("LightWidget", "Light Widget Created Successfully.", Engine::LogType::SUCCESS));
 }
 
 LightWidget::~LightWidget()

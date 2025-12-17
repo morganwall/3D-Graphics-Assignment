@@ -19,8 +19,11 @@ bool Terrain::LoadHeightmap(const std::string& path)
 	FREE_IMAGE_FORMAT fileFormat{ FreeImage_GetFileType(path.c_str()) };
 	if (fileFormat == FIF_UNKNOWN)
 	{
-		logger->Add(new Engine::LoggerMsg("Height Map", "Unknown File Type!", Engine::LogType::ERROR));
-		logger->Add(new Engine::LoggerMsg("Height Map", "Failed to Load Height Map!", Engine::LogType::ERROR));
+		logger->Add(new Engine::LoggerMsg("HeightMap", "Unknown File Type!", Engine::LogType::ERROR));
+		std::string tempString{ "Failed to Load Height Map: " };
+		tempString += path;
+		tempString += "!";
+		logger->Add(new Engine::LoggerMsg("HeightMap", tempString, Engine::LogType::ERROR));
 		return false;
 	}
 
@@ -29,13 +32,19 @@ bool Terrain::LoadHeightmap(const std::string& path)
 	heightMap = FreeImage_ConvertTo24Bits(heightMap);
 	if (!heightMap)
 	{
-		logger->Add(new Engine::LoggerMsg("Height Map", "Failed to Load Height Map!", Engine::LogType::ERROR));
+		std::string tempString{ "Failed to Load Height Map: " };
+		tempString += path;
+		tempString += "!";
+		logger->Add(new Engine::LoggerMsg("HeightMap", tempString, Engine::LogType::ERROR));
 		heightMap = nullptr; // Ensuring that it's still nullptr.
 		return false;
 	}
 	heightMapSize = { FreeImage_GetWidth(heightMap), FreeImage_GetHeight(heightMap) };
 
-	logger->Add(new Engine::LoggerMsg("Height Map", "Height Map Loaded.", Engine::LogType::SUCCESS));
+	std::string tempString{"Height Map Loaded "};
+	tempString += path;
+	tempString += ".";
+	logger->Add(new Engine::LoggerMsg("HeightMap", tempString, Engine::LogType::SUCCESS));
 	return true;
 }
 
@@ -46,7 +55,10 @@ bool Terrain::LoadTexture(const std::string& path)
 	if (fileFormat == FIF_UNKNOWN)
 	{
 		logger->Add(new Engine::LoggerMsg("Texture", "Unknown File Type!", Engine::LogType::ERROR));
-		logger->Add(new Engine::LoggerMsg("Texture", "Failed to Load Texture!", Engine::LogType::ERROR));
+		std::string tempString{ "Failed to Load Texture: " };
+		tempString += path;
+		tempString += "!";
+		logger->Add(new Engine::LoggerMsg("Texture", tempString, Engine::LogType::ERROR));
 		return false;
 	}
 
@@ -55,7 +67,10 @@ bool Terrain::LoadTexture(const std::string& path)
 	texture = FreeImage_ConvertTo32Bits(texture);
 	if (!texture)
 	{
-		logger->Add(new Engine::LoggerMsg("Texture", "Failed to Load Texture!", Engine::LogType::ERROR));
+		std::string tempString{ "Failed to Load Texture: " };
+		tempString += path;
+		tempString += "!";
+		logger->Add(new Engine::LoggerMsg("Texture", tempString, Engine::LogType::ERROR));
 		texture = nullptr; // Ensuring that it's still nullptr.
 		return false;
 	}
@@ -77,7 +92,10 @@ bool Terrain::LoadTexture(const std::string& path)
 	FreeImage_Unload(texture);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	logger->Add(new Engine::LoggerMsg("Texture", "Texture Loaded.", Engine::LogType::SUCCESS));
+	std::string tempString{ "Texture Loaded: " };
+	tempString += path;
+	tempString += ".";
+	logger->Add(new Engine::LoggerMsg("Texture", tempString, Engine::LogType::SUCCESS));
 	return true;
 }
 
@@ -309,7 +327,7 @@ size(terrainSize), triangleSize(triSize), heightMode(heightGenMode), heightMapPa
 
 	glBindVertexArray(0);
 
-	logger->Add(new Engine::LoggerMsg("Terrain", "Terrain Created.", Engine::LogType::SUCCESS));
+	logger->Add(new Engine::LoggerMsg("Terrain", "Terrain Successfully Created.", Engine::LogType::SUCCESS));
 }
 
 Terrain::~Terrain()

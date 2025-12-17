@@ -538,12 +538,15 @@ int main()
 	sceneObjects.push_back(new Terrain("Terrain"));
 	sceneObjects.push_back(light);
 	sceneObjects.push_back(new Skybox());
-	sceneObjects.push_back(new Model("Data/Models/Apple/apple.obj", { -10.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.1f, 0.1f, 0.1f }));
-	sceneObjects.push_back(new Model("Data/Models/Bot/Bee animated.fbx", { -10.0f, 0.0f, 10.0f }, { 0.0f, 0.0f, 0.0f }, { 0.1f, 0.1f, 0.1f }));
-	sceneObjects.push_back(new Model("Data/Models/Jeep/jeep.obj", { -10.0f, 0.0f, 20.0f }, { 0.0f, 0.0f, 0.0f }, { 0.01f, 0.01f, 0.01f }));
-	sceneObjects.push_back(new Model("Data/Models/Mummy/mummy.x", { -10.0f, 0.0f, 30.0f }, { 0.0f, 0.0f, 0.0f }));
-	sceneObjects.push_back(new Model("Data/Models/Sphere/sphere.obj", { -10.0f, 0.0f, 40.0f }, { 0.0f, 0.0f, 0.0f }));
-	sceneObjects.push_back(new Model("Data/Models/Spider/spider.x", { -10.0f, 0.0f, 50.0f }, { 0.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Model("Data/Models/Apple/apple.obj", { -10.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.05f, 0.05f, 0.05f }));
+	sceneObjects.push_back(new Model("Data/Models/Apple2/Apple2.obj", { -10.0f, 0.0f, 10.0f }, { 0.0f, 0.0f, 0.0f }, { 15.0f, 15.0f, 15.0f })); // Credit for Model: https://sketchfab.com/3d-models/red-apple-7a179f2b4837457eafa66c2f7094d280
+	sceneObjects.push_back(new Model("Data/Models/AquaPig/aqua_pig_xforms.txt", { -10.0f, 0.0f, 20.0f }, { 0.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Model("Data/Models/Bones/bones_static.x", { -10.0f, 0.0f, 30.0f }, { 0.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Model("Data/Models/Bot/Bee.obj", { -10.0f, 0.0f, 40.0f }, { 0.0f, 0.0f, 0.0f }, { 0.1f, 0.1f, 0.1f }));
+	sceneObjects.push_back(new Model("Data/Models/Jeep/jeep.obj", { -10.0f, 0.0f, 50.0f }, { 0.0f, 0.0f, 0.0f }, { 0.01f, 0.01f, 0.01f }));
+	sceneObjects.push_back(new Model("Data/Models/Mummy/mummy.x", { -10.0f, 0.0f, 60.0f }, { 0.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Model("Data/Models/Sphere/sphere.obj", { -10.0f, 0.0f, 70.0f }, { 0.0f, 0.0f, 0.0f }));
+	sceneObjects.push_back(new Model("Data/Models/Spider/spider.x", { -10.0f, 0.0f, 80.0f }, { 0.0f, 0.0f, 0.0f }, { 7.0f, 7.0f, 7.0f }));
 
 	// Main Loop.
 	while (!glfwWindowShouldClose(window))
@@ -567,6 +570,7 @@ int main()
 
 /*
 TODO:
+01. Add ability to change terrain triangle count. .SHOULD DO.
 02. Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
 03. Add a widget to show the light radius/cone/direction(for directional lights), called LightPreviewWidget.
 04. Split Default shader into several different shaders. I.E. remove the terrain shading from it.
@@ -584,4 +588,8 @@ TODO:
 		Move commonly used structs to a separate header, with a namespace.
 15. Change all objects to use the new Mesh class, as some objects may want multiple meshes.
 16. Make every part of the dir string clickable.
+17. Add animation support for models.
+18. Add saving and loading of scenes.
+19. Add texture caching.
+20. Add texture viewer to inspector of models.
 */

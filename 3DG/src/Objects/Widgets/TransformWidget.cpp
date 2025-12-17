@@ -1,4 +1,7 @@
 #include "TransformWidget.h"
+#include "../../Logger.h"
+
+extern Logger* logger;
 
 void TransformWidget::GUI()
 {
@@ -63,7 +66,7 @@ TransformWidget::TransformWidget(bool visible, float widgetSize, WidgetType widg
 	// Unbind Vertex Array for Safety.
 	glBindVertexArray(0);
 
-	std::cout << "[+] Transform Widget Created.\n";
+	logger->Add(new Engine::LoggerMsg("TransformWidget", "Transform Widget Created Successfully.", Engine::LogType::SUCCESS));
 }
 
 TransformWidget::~TransformWidget()

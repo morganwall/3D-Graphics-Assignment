@@ -11,7 +11,10 @@ GLuint Model::LoadTextureFromFile(const std::string& path)
 	FREE_IMAGE_FORMAT fileFormat{ FreeImage_GetFileType(path.c_str()) };
 	if (fileFormat == FIF_UNKNOWN)
 	{
-		logger->Add(new Engine::LoggerMsg("File", "Unknown File Type!", Engine::LogType::ERROR));
+		std::string tempString{ "Unknown File Type: " };
+		tempString += path;
+		tempString += "!";
+		logger->Add(new Engine::LoggerMsg("File", tempString, Engine::LogType::ERROR));
 		
 		return 0;
 	}
@@ -21,7 +24,10 @@ GLuint Model::LoadTextureFromFile(const std::string& path)
 	file = FreeImage_ConvertTo32Bits(file);
 	if (!file)
 	{
-		logger->Add(new Engine::LoggerMsg("File", "Failed to Load the File!", Engine::LogType::ERROR));
+		std::string tempString{ "Failed to Load File: " };
+		tempString += path;
+		tempString += "!";
+		logger->Add(new Engine::LoggerMsg("File", tempString, Engine::LogType::ERROR));
 		return 0;
 	}
 
@@ -48,7 +54,10 @@ GLuint Model::LoadTextureFromFile(const std::string& path)
 	FreeImage_Unload(file);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	logger->Add(new Engine::LoggerMsg("Texture", "Texture Loaded.", Engine::LogType::SUCCESS));
+	std::string tempString{ "Loaded Texture: " };
+	tempString += path;
+	tempString += ".";
+	logger->Add(new Engine::LoggerMsg("Texture", tempString, Engine::LogType::SUCCESS));
 
 	return textureID;
 }
@@ -239,7 +248,10 @@ Model::Model(const std::string path, glm::vec3 pos, glm::vec3 rot, glm::vec3 obj
 	// Get All Model Nodes.
 	GetNodes(scene, scene->mRootNode);
 
-	logger->Add(new Engine::LoggerMsg("Model", "Successfully Loaded Model.", Engine::LogType::SUCCESS));
+	std::string tempString{ "Successfully Loaded Model: " };
+	tempString += path;
+	tempString += ".";
+	logger->Add(new Engine::LoggerMsg("Model", tempString.c_str(), Engine::LogType::SUCCESS));
 }
 
 Model::~Model()
