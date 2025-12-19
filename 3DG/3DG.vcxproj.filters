@@ -123,6 +123,9 @@
     <ClCompile Include="src\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\EngineStructs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\GLEW\eglew.h">
@@ -255,5 +258,6 @@
     <None Include="Data\Shaders\lightWidget.frag" />
     <None Include="Data\Shaders\model.vert" />
     <None Include="Data\Shaders\model.frag" />
+    <None Include="Data\Shaders\modelOld.frag" />
   </ItemGroup>
 </Project>

@@ -68,7 +68,7 @@ void Mesh::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, 
 	glBindVertexArray(VAO);
 
 	// Draw Elements.
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
 
 	// Unbind Vertex Array.
 	glBindVertexArray(VAO);

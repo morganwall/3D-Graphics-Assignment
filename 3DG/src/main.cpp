@@ -267,7 +267,7 @@ void CreateShaders()
 	// ----- Light Widget Shader - Start ------
 	// Create Shaders.
 	GLuint modelVertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/model.vert") };
-	GLuint modelFragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/fragment_shader.frag") };
+	GLuint modelFragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/model.frag") };
 	gModelShaderProgram = glCreateProgram();
 
 	// Create and Attach Shader Program.
@@ -375,8 +375,8 @@ void Render(GLFWwindow* window)
 			break;
 
 		case SceneObjectType::MODEL:
-			glUseProgram(gShaderProgram); // TODO: Replace with Model Shader.
-			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gShaderProgram);
+			glUseProgram(gModelShaderProgram); // TODO: Replace with Model Shader.
+			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gModelShaderProgram);
 			break;
 
 		default:
@@ -591,5 +591,6 @@ TODO:
 17. Add animation support for models.
 18. Add saving and loading of scenes.
 19. Add texture caching.
-20. Add texture viewer to inspector of models.
+20. Add timestamps to debug outputs, to both the windows console and the GUI console.
+21. Improve GUI console formatting. Split it into several columns, i.e. Timestamp, Name, Description, and Type.
 */

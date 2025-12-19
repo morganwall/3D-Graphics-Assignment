@@ -7,6 +7,11 @@ extern Logger* logger;
 
 GLuint Model::LoadTextureFromFile(const std::string& path)
 {
+	// Check if the Texture is Already Loaded.
+	auto it{ loadedTextures.find(path) };
+	if (it != loadedTextures.end())
+		return it->second.id;
+
 	// Get File Format.
 	FREE_IMAGE_FORMAT fileFormat{ FreeImage_GetFileType(path.c_str()) };
 	if (fileFormat == FIF_UNKNOWN)
@@ -59,14 +64,17 @@ GLuint Model::LoadTextureFromFile(const std::string& path)
 	tempString += ".";
 	logger->Add(new Engine::LoggerMsg("Texture", tempString, Engine::LogType::SUCCESS));
 
+	if (textureID != 0)
+	{
+		// Cache the Loaded Texture.
+		loadedTextures[path] = Engine::Texture(textureID, path);
+	}
+
 	return textureID;
 }
 
 std::vector<Engine::Texture> Model::LoadTextures(aiMaterial* material)
 {
-	// Create Vector to Hold Textures.
-	std::vector<Engine::Texture> textures;
-
 	// Struct to Convert from Assimp Texture Types, to Our Texture Types.
 	struct ConvertTypes
 	{
@@ -99,7 +107,7 @@ std::vector<Engine::Texture> Model::LoadTextures(aiMaterial* material)
 		unsigned int numTextures{ material->GetTextureCount(curType.aiType) };
 
 		// Load Textures.
-		for (int i = 0; i < numTextures; i++)
+		for (unsigned int i = 0; i < numTextures; i++)
 		{
 			// Buffer to Hold Texture Path.
 			aiString texturePath;
@@ -117,6 +125,11 @@ std::vector<Engine::Texture> Model::LoadTextures(aiMaterial* material)
 
 				// Push to Textures Vector.
 				textures.push_back(curTexture);
+
+				std::string tempString{ "Loaded Texture: " };
+				tempString += TextureTypeToString(curType.ourType);
+				tempString += ".";
+				logger->Add(new Engine::LoggerMsg("Model", tempString, Engine::LogType::CUSTOM, { 0.6f, 0.6f, 1.0f, 1.0f }));
 			}
 		}
 	}
@@ -127,7 +140,7 @@ std::vector<Engine::Texture> Model::LoadTextures(aiMaterial* material)
 void Model::GetNodes(const aiScene* scene, aiNode* node)
 {
 	// Loop through All Meshes in the Current Node.
-	for (int i = 0; i < node->mNumMeshes; i++)
+	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		// Get Current Mesh.
 		aiMesh* curMesh{ scene->mMeshes[node->mMeshes[i]] };
@@ -137,7 +150,7 @@ void Model::GetNodes(const aiScene* scene, aiNode* node)
 	}
 
 	// Get Child Nodes.
-	for (int i = 0; i < node->mNumChildren; i++)
+	for (unsigned int i = 0; i < node->mNumChildren; i++)
 		GetNodes(scene, node->mChildren[i]);
 }
 
@@ -149,7 +162,7 @@ Mesh Model::CreateMesh(const aiScene* scene, aiMesh* mesh)
 	std::vector<Engine::Texture> textures;
 
 	// Loop through Mesh Vertices.
-	for (int i = 0; i < mesh->mNumVertices; i++)
+	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Engine::Vertex curVertex;
 
@@ -190,12 +203,12 @@ Mesh Model::CreateMesh(const aiScene* scene, aiMesh* mesh)
 	}
 
 	// Loop through Mesh Faces to Get Indices.
-	for (int i = 0; i < mesh->mNumFaces; i++)
+	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace curFace{ mesh->mFaces[i] };
 
 		// Loop through Indices.
-		for (int j = 0; j < curFace.mNumIndices; j++)
+		for (unsigned int j = 0; j < curFace.mNumIndices; j++)
 			indices.push_back(curFace.mIndices[j]);
 	}
 
@@ -209,6 +222,49 @@ Mesh Model::CreateMesh(const aiScene* scene, aiMesh* mesh)
 	}
 
 	return Mesh(vertices, indices, textures);
+}
+
+void Model::GUIExtras()
+{
+	ImGui::SeparatorText("Model Settings");
+
+	ImVec2 inspectorSize{ ImGui::GetContentRegionAvail() };
+
+	// Check that We Have at least One Texture.
+	if (textures.size() > 0)
+	{
+		ImGui::Text("Texture Browser");
+
+		ImGui::BeginChild("TextureBrowser", { 0.0f, inspectorSize.y / 3.0f }, true);
+
+		// Get Texture Browser Size.
+		ImVec2 browserSize{ ImGui::GetContentRegionAvail() };
+
+		int curColumn{ 0 };
+		int lastNewTexture{ 0 };
+
+		// Loop Through Textures.
+		for (Engine::Texture& curTexture : textures)
+		{
+			curColumn++;
+
+			if (lastNewTexture != curTexture.id)
+				lastNewTexture = curTexture.id;
+			else
+				continue; // Skip duplicate textures.
+
+			ImGui::Image(reinterpret_cast<void*>(static_cast<intptr_t>(curTexture.id)), ImVec2(browserSize.x / 3.0f - 5.0f, browserSize.x / 3.0f - 5.0f));
+
+			// See if we should Draw on the Same Row.
+			if (curColumn < 3)
+				ImGui::SameLine();
+
+			if (curColumn >= 3)
+				curColumn = 0;
+		}
+
+		ImGui::EndChild(); // TextureBrowser End.
+	}
 }
 
 void Model::Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram)

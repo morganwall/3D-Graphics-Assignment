@@ -140,6 +140,7 @@
     <ClCompile Include="External\IMGUI\imgui_impl_win32.cpp" />
     <ClCompile Include="External\IMGUI\imgui_tables.cpp" />
     <ClCompile Include="External\IMGUI\imgui_widgets.cpp" />
+    <ClCompile Include="src\EngineStructs.cpp" />
     <ClCompile Include="src\GUI\ConsoleWindow.cpp" />
     <ClCompile Include="src\GUI\InspectorWindow.cpp" />
     <ClCompile Include="src\GUI\ObjectsWindow.cpp" />
@@ -211,6 +212,7 @@
     <None Include="Data\Shaders\lightWidget.vert" />
     <None Include="Data\Shaders\model.frag" />
     <None Include="Data\Shaders\model.vert" />
+    <None Include="Data\Shaders\modelOld.frag" />
     <None Include="Data\Shaders\skybox.frag" />
     <None Include="Data\Shaders\skybox.vert" />
     <None Include="Data\Shaders\vertex_shader.vert" />

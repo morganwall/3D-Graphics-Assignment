@@ -17,6 +17,7 @@ namespace Engine
 
 	enum class TextureType
 	{
+		UNKNOWN,
 		ALBEDO, // Base colour.
 		NORMAL, // Surface detail.
 		ROUGHNESS, // Shiny/Rough.
@@ -27,11 +28,15 @@ namespace Engine
 		OPACITY // Transparency.
 	};
 
+	std::string TextureTypeToString(TextureType type);
+
 	struct Texture
 	{
-		GLuint id; // The texture's ID.
+		GLuint id = 0; // The texture's ID.
 		std::string path = ""; // The texture's path.
-		TextureType type = TextureType::ALBEDO; // The type of texture.
+		TextureType type = TextureType::UNKNOWN; // The type of texture.
+
+		Texture(GLuint id = 0, std::string path = "", TextureType type = TextureType::UNKNOWN) : id(id), path(path), type(type) {}
 	};
 
 	enum class LogType

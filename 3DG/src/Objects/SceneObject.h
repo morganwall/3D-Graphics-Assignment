@@ -38,6 +38,7 @@ protected:
 	std::vector<unsigned int> indices;
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
+	float shininess{ 32.0f }; // Specular shininess factor.
 	GLuint normalBuffer{ 0 };
 	GLsizei numIndicesPerFace{ 6 }; // Number of indices per face.
 	bool wireframe{ false }; // Show the object's wireframe.

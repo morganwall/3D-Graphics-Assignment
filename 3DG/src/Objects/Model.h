@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <unordered_map>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -8,6 +9,8 @@
 
 class Model : public SceneObject
 {
+	std::vector<Engine::Texture> textures;
+	std::unordered_map<std::string, Engine::Texture> loadedTextures; // Texture Cache.
 	std::vector<Mesh> meshes;
 	std::string dir;
 
@@ -21,6 +24,7 @@ class Model : public SceneObject
 	glm::vec2 asVec2(aiVector2D& aiVec) { return glm::vec2(aiVec.x, aiVec.y); }
 
 public:
+	void GUIExtras() override;
 	void Draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, GLuint gShaderProgram);
 
 	Model(const std::string path, glm::vec3 pos = { 0.0f, 0.0f, 0.0f }, glm::vec3 rot = { 0.0f, 0.0f, 0.0f }, glm::vec3 objectScale = { 1.0f, 1.0f, 1.0f });
