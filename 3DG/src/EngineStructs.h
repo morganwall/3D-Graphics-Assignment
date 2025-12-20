@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include <chrono>
+#include <sstream>
+#include <iomanip>
 #include <glm/glm.hpp>
 #include <glew.h>
 #include <imgui.h>
@@ -49,6 +52,7 @@ namespace Engine
 
 	struct LoggerMsg
 	{
+		std::string timestamp = "";
 		std::string name = "Name";
 		std::string description = "Description";
 		LogType type = LogType::INFO;
@@ -56,6 +60,16 @@ namespace Engine
 		bool toGUI = true;
 		bool toConsole = true;
 
-		LoggerMsg(std::string name = "Name", std::string description = "Description", LogType type = LogType::INFO, ImColor colour = {1.0f, 1.0f, 1.0f, 1.0f}, bool toGUI = true, bool toConsole = true) : name(name), description(description), type(type), colour(colour), toGUI(toGUI), toConsole(toConsole) {}
+        LoggerMsg(std::string name = "Name", std::string description = "Description", LogType type = LogType::INFO, ImColor colour = {1.0f, 1.0f, 1.0f, 1.0f}, bool toGUI = true, bool toConsole = true) : name(name), description(description), type(type), colour(colour), toGUI(toGUI), toConsole(toConsole)
+        {
+			// Get Current Time.
+			auto time{ std::time(nullptr) };
+			std::tm localTime;
+			localtime_s(&localTime, &time);
+
+			std::ostringstream timeStream;
+			timeStream << std::put_time(&localTime, "%H:%M:%S");
+			timestamp = timeStream.str();
+        }
 	};
 }

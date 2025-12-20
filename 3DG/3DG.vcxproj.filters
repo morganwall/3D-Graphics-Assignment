@@ -244,10 +244,10 @@
     <None Include="External\IMGUI\imgui.gdb">
       <Filter>External</Filter>
     </None>
-    <None Include="Data\Shaders\fragment_shader.frag">
+    <None Include="Data\Shaders\default.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Data\Shaders\vertex_shader.vert">
+    <None Include="Data\Shaders\default.vert">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Data\Shaders\skybox.vert" />

@@ -207,7 +207,7 @@
     <ClInclude Include="src\Objects\Widgets\Widget.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\Shaders\fragment_shader.frag" />
+    <None Include="Data\Shaders\default.frag" />
     <None Include="Data\Shaders\lightWidget.frag" />
     <None Include="Data\Shaders\lightWidget.vert" />
     <None Include="Data\Shaders\model.frag" />
@@ -215,7 +215,7 @@
     <None Include="Data\Shaders\modelOld.frag" />
     <None Include="Data\Shaders\skybox.frag" />
     <None Include="Data\Shaders\skybox.vert" />
-    <None Include="Data\Shaders\vertex_shader.vert" />
+    <None Include="Data\Shaders\default.vert" />
     <None Include="Data\Shaders\widget.frag" />
     <None Include="Data\Shaders\widget.vert" />
     <None Include="External\IMGUI\imgui.gdb" />

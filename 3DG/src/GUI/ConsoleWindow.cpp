@@ -18,20 +18,20 @@ void ConsoleWindow::Draw()
 		switch (curMsg->type)
 		{
 		case Engine::LogType::INFO:
-			msgBuffer = "[.] " + curMsg->name + " | " + curMsg->description;
+			msgBuffer = "[.] " + curMsg->timestamp + " | " + curMsg->name + " | " + curMsg->description;
 			curMsg->colour = { 1.0f, 1.0f, 1.0f, 1.0f };
 			break;
 		case Engine::LogType::ERROR:
-			msgBuffer = "[!] " + curMsg->name + " | " + curMsg->description;
+			msgBuffer = "[!] " + curMsg->timestamp + " | " + curMsg->name + " | " + curMsg->description;
 			curMsg->colour = { 1.0f, 0.0f, 0.0f, 1.0f };
 			break;
 		case Engine::LogType::SUCCESS:
-			msgBuffer = "[+] " + curMsg->name + " | " + curMsg->description;
+			msgBuffer = "[+] " + curMsg->timestamp + " | " + curMsg->name + " | " + curMsg->description;
 			curMsg->colour = { 0.0f, 1.0f, 0.0f, 1.0f };
 			break;
 		case Engine::LogType::CUSTOM:
 		default:
-			msgBuffer = "[ ] " + curMsg->name + " | " + curMsg->description;
+			msgBuffer = "[ ] " + curMsg->timestamp + " | " + curMsg->name + " | " + curMsg->description;
 			break;
 		}
 
@@ -71,20 +71,20 @@ void ConsoleWindow::Draw()
 		switch (curMsg->type)
 		{
 		case Engine::LogType::INFO:
-			msgBuffer = "[.] " + curMsg->name + " | " + curMsg->description;
+			msgBuffer = "[.] " + curMsg->timestamp + " | " + curMsg->name + " | " + curMsg->description;
 			curMsg->colour = { 1.0f, 1.0f, 1.0f, 1.0f };
 			break;
 		case Engine::LogType::ERROR:
-			msgBuffer = "[!] " + curMsg->name + " | " + curMsg->description;
+			msgBuffer = "[!] " + curMsg->timestamp + " | " + curMsg->name + " | " + curMsg->description;
 			curMsg->colour = { 1.0f, 0.0f, 0.0f, 1.0f };
 			break;
 		case Engine::LogType::SUCCESS:
-			msgBuffer = "[+] " + curMsg->name + " | " + curMsg->description;
+			msgBuffer = "[+] " + curMsg->timestamp + " | " + curMsg->name + " | " + curMsg->description;
 			curMsg->colour = { 0.0f, 1.0f, 0.0f, 1.0f };
 			break;
 		case Engine::LogType::CUSTOM:
 		default:
-			msgBuffer = "[ ] " + curMsg->name + " | " + curMsg->description;
+			msgBuffer = "[ ] " + curMsg->timestamp + " | " + curMsg->name + " | " + curMsg->description;
 			break;
 		}
 

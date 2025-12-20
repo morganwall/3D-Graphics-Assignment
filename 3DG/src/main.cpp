@@ -19,7 +19,6 @@ GLuint gShaderProgram{ 0 };
 GLuint gSkyboxShaderProgram{ 0 };
 GLuint gWidgetShaderProgram{ 0 };
 GLuint gLightWidgetShaderProgram{ 0 };
-GLuint gModelShaderProgram{ 0 };
 std::string wndTitle{ "3D Graphics" };
 std::vector<SceneObject*> sceneObjects;
 Camera* camera{ nullptr };
@@ -210,8 +209,8 @@ void CreateShaders()
 {
 	// ----- Default Shader - Start ------
 	// Create General Purpose Shaders.
-	GLuint vertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/vertex_shader.vert") };
-	GLuint fragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/fragment_shader.frag") };
+	GLuint vertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/default.vert") };
+	GLuint fragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/default.frag") };
 	gShaderProgram = glCreateProgram();
 
 	// Create and Attach Shader Program.
@@ -264,20 +263,6 @@ void CreateShaders()
 	KeithHelpers::LinkProgramShaders(gLightWidgetShaderProgram);
 	// ----- Light Widget Shader - End ------
 
-	// ----- Light Widget Shader - Start ------
-	// Create Shaders.
-	GLuint modelVertexShader{ KeithHelpers::LoadAndCompileShader(GL_VERTEX_SHADER, "Data/Shaders/model.vert") };
-	GLuint modelFragmentShader{ KeithHelpers::LoadAndCompileShader(GL_FRAGMENT_SHADER, "Data/Shaders/model.frag") };
-	gModelShaderProgram = glCreateProgram();
-
-	// Create and Attach Shader Program.
-	glAttachShader(gModelShaderProgram, modelVertexShader);
-	glAttachShader(gModelShaderProgram, modelFragmentShader);
-
-	// Link Shaders.
-	KeithHelpers::LinkProgramShaders(gModelShaderProgram);
-	// ----- Light Widget Shader - End ------
-
 	// Delete Shader Objects.
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
@@ -287,8 +272,6 @@ void CreateShaders()
 	glDeleteShader(widgetFragmentShader);
 	glDeleteShader(lightWidgetVertexShader);
 	glDeleteShader(lightWidgetFragmentShader);
-	glDeleteShader(modelVertexShader);
-	glDeleteShader(modelFragmentShader);
 
 	std::cout << "[+] Shaders Created and Linked.\n";
 }
@@ -372,11 +355,6 @@ void Render(GLFWwindow* window)
 		case SceneObjectType::SKYBOX:
 			glUseProgram(gSkyboxShaderProgram);
 			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gSkyboxShaderProgram);
-			break;
-
-		case SceneObjectType::MODEL:
-			glUseProgram(gModelShaderProgram); // TODO: Replace with Model Shader.
-			curObject->Draw(camera->GetViewMatrix(), projectionMatrix, gModelShaderProgram);
 			break;
 
 		default:
@@ -574,7 +552,6 @@ TODO:
 02. Add a Goto button in the inspector window, that moved the camera to the object, with an offset away, looking at the object.
 03. Add a widget to show the light radius/cone/direction(for directional lights), called LightPreviewWidget.
 04. Split Default shader into several different shaders. I.E. remove the terrain shading from it.
-05. Add all parts of Phong shading. .SHOULD DO.
 06. Add loading and rendering 3D models, with support for textures. !REQUIRED!
 		Maybe add hierarchical transformations, for example a rotating propellor on a plane.
 07. Make objects cast shadows.
@@ -590,7 +567,5 @@ TODO:
 16. Make every part of the dir string clickable.
 17. Add animation support for models.
 18. Add saving and loading of scenes.
-19. Add texture caching.
-20. Add timestamps to debug outputs, to both the windows console and the GUI console.
 21. Improve GUI console formatting. Split it into several columns, i.e. Timestamp, Name, Description, and Type.
 */
