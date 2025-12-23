@@ -256,8 +256,6 @@
     <None Include="Data\Shaders\widget.frag" />
     <None Include="Data\Shaders\lightWidget.vert" />
     <None Include="Data\Shaders\lightWidget.frag" />
-    <None Include="Data\Shaders\model.vert" />
-    <None Include="Data\Shaders\model.frag" />
     <None Include="Data\Shaders\modelOld.frag" />
   </ItemGroup>
 </Project>
