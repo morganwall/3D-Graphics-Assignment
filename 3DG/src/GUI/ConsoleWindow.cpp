@@ -8,6 +8,18 @@ void ConsoleWindow::Draw()
 
 	ImGui::Begin("Console", nullptr, ImGuiWindowFlags_NoCollapse);
 
+	if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+		autoScroll = true;
+	else
+		autoScroll = false;
+
+	// Initially Scroll to the Bottom.
+	if (ImGui::IsWindowAppearing())
+	{
+		ImGui::SetScrollHereY(1.0f); // Scroll window to the bottom.
+		autoScroll = true;
+	}
+
 	// Loop through Logger Messages.
 	for (size_t i = 0; i < logBuffer.size(); )
 	{
@@ -90,6 +102,9 @@ void ConsoleWindow::Draw()
 
 		ImGui::TextColored(curMsg->colour, msgBuffer.c_str());
 	}
+
+	if (autoScroll)
+		ImGui::SetScrollHereY(1.0f); // Scroll window to the bottom.
 
 	ImGui::End();
 }

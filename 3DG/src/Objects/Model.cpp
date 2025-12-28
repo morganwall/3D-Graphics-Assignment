@@ -126,6 +126,7 @@ std::vector<Engine::Texture> Model::LoadTextures(aiMaterial* material)
 				// Push to Textures Vector.
 				textures.push_back(curTexture);
 
+				// TODO: Remove this Once I've Confirmed that Different Texture Types are Loading Correctly.
 				std::string tempString{ "Loaded Texture: " };
 				tempString += TextureTypeToString(curType.ourType);
 				tempString += ".";
