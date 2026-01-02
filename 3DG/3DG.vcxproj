@@ -153,7 +153,6 @@
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\Objects\Camera.cpp" />
     <ClCompile Include="src\Objects\Cube.cpp" />
-    <ClCompile Include="src\Objects\Cube.h" />
     <ClCompile Include="src\Objects\Lights\DirectionalLight.cpp" />
     <ClCompile Include="src\Objects\Lights\Light.cpp" />
     <ClCompile Include="src\Objects\Lights\PointLight.cpp" />
@@ -193,6 +192,7 @@
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Objects\Camera.h" />
+    <ClInclude Include="src\Objects\Cube.h" />
     <ClInclude Include="src\Objects\Lights\DirectionalLight.h" />
     <ClInclude Include="src\Objects\Lights\Light.h" />
     <ClInclude Include="src\Objects\Lights\PointLight.h" />
