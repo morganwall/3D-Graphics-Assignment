@@ -31,7 +31,7 @@ Light* light{ nullptr };
 glm::mat4 projectionMatrix;
 
 // Create Window & Init OpenGL Context. Returns a Pointer to the Newly Created Window.
-GLFWwindow* InitGLFW()
+static GLFWwindow* InitGLFW()
 {
 	// Init GLFW.
 	if (!glfwInit())
@@ -88,7 +88,7 @@ GLFWwindow* InitGLFW()
 }
 
 // Load OpenGL Functions.
-bool InitGLEW()
+static bool InitGLEW()
 {
 	glewExperimental = true; // Required for Core Profile.
 
@@ -104,7 +104,7 @@ bool InitGLEW()
 }
 
 // Custom ImGui Theme. Credits: https://github.com/ocornut/imgui/issues/707#issuecomment-576867100
-void StyleOldSteam()
+static void StyleOldSteam()
 {
 	ImVec4* colors = ImGui::GetStyle().Colors;
 	colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
@@ -169,7 +169,7 @@ void StyleOldSteam()
 }
 
 // Initialise ImGui.
-void InitImGui(GLFWwindow* window)
+static void InitImGui(GLFWwindow* window)
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -188,7 +188,7 @@ void InitImGui(GLFWwindow* window)
 }
 
 // OpenGL Debug Message Callback Function.
-void SetupDebugMessageCallback()
+static void SetupDebugMessageCallback()
 {
 #ifdef _DEBUG
 	int flags{ 0 };
@@ -205,7 +205,7 @@ void SetupDebugMessageCallback()
 #endif
 }
 
-void CreateShaders()
+static void CreateShaders()
 {
 	// ----- Default Shader - Start ------
 	// Create General Purpose Shaders.
@@ -276,7 +276,7 @@ void CreateShaders()
 	std::cout << "[+] Shaders Created and Linked.\n";
 }
 
-float GetDeltaTime()
+static float GetDeltaTime()
 {
 	static float lastTime{ 0.0f }; // Will store the time of the last frame.
 
@@ -292,7 +292,7 @@ float GetDeltaTime()
 	return deltaTime;
 }
 
-void MouseCallback(GLFWwindow* window, double xpos, double ypos)
+static void MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	// Set Callback to ImGui. We'll lose ImGui interactability if we don't.
 	if (ImGui::GetCurrentContext())
@@ -310,7 +310,7 @@ void MouseCallback(GLFWwindow* window, double xpos, double ypos)
 	mousePosOld = { xpos, ypos };
 }
 
-void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	// Set Callback to ImGui. We'll lose ImGui interactability if we don't.
 	if (ImGui::GetCurrentContext())
@@ -325,7 +325,7 @@ void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 		camera->ScrollInput((float)yoffset);
 }
 
-void FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
+static void FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	// Set the New Window Size.
 	wndSize = { width, height };
@@ -337,7 +337,7 @@ void FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-void Render(GLFWwindow* window)
+static void Render(GLFWwindow* window)
 {
 	// Clear Screen.
 	glClearColor(clearColour.r, clearColour.g, clearColour.b, clearColour.a);
@@ -404,14 +404,14 @@ void Render(GLFWwindow* window)
 	glfwSwapBuffers(window);
 }
 
-void Update(float deltaTime)
+static void Update(float deltaTime)
 {
 	// Loop through All Objects and Update Them.
 	for (auto& curObject : sceneObjects)
 		curObject->Update(deltaTime);
 }
 
-void Input(GLFWwindow* window, float deltaTime) // TODO: Move to GUI class.
+static void Input(GLFWwindow* window, float deltaTime) // TODO: Move to GUI class.
 {
 	// GUI Shortcuts.
 	if (ImGui::IsKeyPressed(ImGuiKey_F1))
@@ -448,7 +448,7 @@ void Input(GLFWwindow* window, float deltaTime) // TODO: Move to GUI class.
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
-void Cleanup(GLFWwindow* window)
+static void Cleanup(GLFWwindow* window)
 {
 	// Cleanup OpenGL Resources.
 	glDeleteProgram(gShaderProgram);
@@ -568,4 +568,5 @@ TODO:
 17. Add animation support for models.
 18. Add saving and loading of scenes.
 21. Improve GUI console formatting. Split it into several columns, i.e. Timestamp, Name, Description, and Type.
+22. Fix camera movement speed when moving diagonally/when moving while moving the camera.
 */
