@@ -100,7 +100,28 @@ void ConsoleWindow::Draw()
 			break;
 		}
 
+		// Push Message Pointer as ImGui ID.
+		ImGui::PushID(curMsg);
+
 		ImGui::TextColored(curMsg->colour, msgBuffer.c_str());
+
+		// Right Click Menu.
+		if (ImGui::BeginPopupContextItem(curMsg->timestamp.c_str()))
+		{
+			if (ImGui::MenuItem("Copy"))
+				ImGui::SetClipboardText(msgBuffer.c_str());
+
+			if (ImGui::MenuItem("Delete"))
+			{
+				// Remove Message from GUI Messages Vector.
+				auto toDelete{ std::find(guiMessages.begin(), guiMessages.end(), curMsg) };
+					guiMessages.erase(toDelete);
+			}
+
+			ImGui::EndPopup();
+		}
+
+		ImGui::PopID();
 	}
 
 	if (autoScroll)

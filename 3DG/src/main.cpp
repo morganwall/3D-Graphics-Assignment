@@ -569,6 +569,4 @@ TODO:
 18. Add saving and loading of scenes.
 21. Improve GUI console formatting. Split it into several columns, i.e. Timestamp, Name, Description, and Type.
 22. Fix camera movement speed when moving diagonally/when moving while moving the camera.
-23. Allow messaged to be right clicked, opening a context menu.
-	Add option to copy message, delete message, and change message colour.
 */
