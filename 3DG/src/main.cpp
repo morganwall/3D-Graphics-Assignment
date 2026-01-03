@@ -564,9 +564,11 @@ TODO:
 14. Change all objects to use a Vertex struct, rather than individual vectors for vertex position, and normals.
 		Move commonly used structs to a separate header, with a namespace.
 15. Change all objects to use the new Mesh class, as some objects may want multiple meshes.
-16. Make every part of the dir string clickable.
+16. Make every part of the dir string clickable in project window.
 17. Add animation support for models.
 18. Add saving and loading of scenes.
 21. Improve GUI console formatting. Split it into several columns, i.e. Timestamp, Name, Description, and Type.
 22. Fix camera movement speed when moving diagonally/when moving while moving the camera.
+23. Allow messaged to be right clicked, opening a context menu.
+	Add option to copy message, delete message, and change message colour.
 */

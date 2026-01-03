@@ -63,12 +63,35 @@ void ObjectsWindow::Draw()
 			sceneObjects->push_back(new Cube());
 		if (ImGui::MenuItem("Terrain"))
 			sceneObjects->push_back(new Terrain());
-		if (ImGui::MenuItem("Directional Light"))
-			sceneObjects->push_back(new DirectionalLight());
-		if (ImGui::MenuItem("Point Light"))
-			sceneObjects->push_back(new PointLight());
-		if (ImGui::MenuItem("Spot Light"))
-			sceneObjects->push_back(new SpotLight());
+		// Check that We Don't Alreadty Have a Light in the Scene. Only One Light is Allowed.
+		if (!light)
+		{
+			if (ImGui::MenuItem("Directional Light"))
+			{
+				light = new DirectionalLight();
+				sceneObjects->push_back(light);
+			}
+
+			if (ImGui::MenuItem("Point Light"))
+			{
+				light = new PointLight();
+				sceneObjects->push_back(light);
+			}
+
+			if (ImGui::MenuItem("Spot Light"))
+			{
+				light = new SpotLight();
+				light->SetRotation({ -90.0f, 0.0f, 0.0f }); // Points the spot light down by default.
+				sceneObjects->push_back(light);
+			}
+		}
+		else
+		{
+			ImGui::TextDisabled("Directional Light (Max Lights Reached)");
+			ImGui::TextDisabled("Point Light (Max Lights Reached)");
+			ImGui::TextDisabled("Spot Light (Max Lights Reached)");
+		}
+
 		if (ImGui::MenuItem("Skybox"))
 			sceneObjects->push_back(new Skybox());
 

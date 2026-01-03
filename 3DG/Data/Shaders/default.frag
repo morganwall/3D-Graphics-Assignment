@@ -161,6 +161,7 @@ void main()
 
     vec3 finalLighting = albedo * ambient; // Start with ambient light.
 
+    // Didn't Finish Adding Support for Multiple Lights Yet.
     //for (int i = 0; i < MAX_LIGHTS && i < numLights; i++)
     //{
         //finalLighting += GetLighting(lights[i], albedo, normal);
