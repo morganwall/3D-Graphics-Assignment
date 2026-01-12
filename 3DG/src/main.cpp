@@ -1,3 +1,6 @@
+// !!!!!!!!!! NOTE: Please remember to move the library DLLs to the build folder (with the binary) from 3DG\External\bin\ and copy the entire Data folder to the same location, including the Data folder itself. Build as Release|x64.
+// Also comments were written on my ultra-wide (21:9) monitor, so they might be too long for a (16:9) monitor, meaning you may need to scroll side to side to read them, sorry. Just like this one lol.
+
 #include "Keith Helpers.h"
 #include "Logger.h"
 #include "GUI/GUI.h"
